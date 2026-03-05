@@ -1,0 +1,111 @@
+{
+  "suity": {
+    "rsn": "Suity",
+    "osrs_total": 214965,
+    "rs3_total": 60000,
+    "combined_total": 274965,
+    "ranks": {
+      "osrs": 42,
+      "rs3": 17,
+      "combined": 39
+    },
+    "leagues": {
+      "TL": {
+        "points": 20830,
+        "trophy": "Dragon"
+      },
+      "TBL": {
+        "points": 56310,
+        "trophy": "Dragon"
+      },
+      "SRL": {
+        "points": 52545,
+        "trophy": "Dragon"
+      },
+      "TBLR": {
+        "points": 56000,
+        "trophy": "Dragon"
+      },
+      "REL": {
+        "points": 29380,
+        "trophy": "Rune"
+      },
+      "CATA": {
+        "points": 60000,
+        "trophy": "Dragon"
+      }
+    }
+  },
+
+  "zezima": {
+    "rsn": "Zezima",
+    "osrs_total": 178420,
+    "rs3_total": 42000,
+    "combined_total": 220420,
+    "ranks": {
+      "osrs": 103,
+      "rs3": 88,
+      "combined": 91
+    },
+    "leagues": {
+      "TL": {
+        "points": 10820,
+        "trophy": "Rune"
+      },
+      "TBL": {
+        "points": 35680,
+        "trophy": "Rune"
+      },
+      "SRL": {
+        "points": 31980,
+        "trophy": "Rune"
+      },
+      "TBLR": {
+        "points": 42000,
+        "trophy": "Rune"
+      },
+      "REL": {
+        "points": 57940,
+        "trophy": "Dragon"
+      },
+      "CATA": {
+        "points": 42000,
+        "trophy": "Rune"
+      }
+    }
+  },
+
+  "lynx titan": {
+    "rsn": "Lynx Titan",
+    "osrs_total": 256000,
+    "rs3_total": 0,
+    "combined_total": 256000,
+    "ranks": {
+      "osrs": 12,
+      "rs3": 9999,
+      "combined": 15
+    },
+    "leagues": {
+      "TL": {
+        "points": 20830,
+        "trophy": "Dragon"
+      },
+      "TBL": {
+        "points": 56310,
+        "trophy": "Dragon"
+      },
+      "SRL": {
+        "points": 52545,
+        "trophy": "Dragon"
+      },
+      "TBLR": {
+        "points": 56000,
+        "trophy": "Dragon"
+      },
+      "REL": {
+        "points": 60315,
+        "trophy": "Dragon"
+      }
+    }
+  }
+}
