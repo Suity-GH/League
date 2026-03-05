@@ -1,1 +1,40 @@
-i
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Leagues Lookup</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="header">
+      <div>
+        <div class="kicker">Leagues</div>
+        <h1 class="title">Player Lookup</h1>
+        <div class="sub">Search an RSN to view points + trophy per league.</div>
+      </div>
+      <div class="pill">OSRS + RS3</div>
+    </header>
+
+    <section class="card">
+      <label class="label" for="q">RSN</label>
+      <div class="searchRow">
+        <input id="q" class="input" placeholder="e.g. suity" autocomplete="off" />
+        <button id="clear" class="btn" type="button">Clear</button>
+      </div>
+      <div id="hint" class="hint">Tip: results match normalized names (spaces/underscores don’t matter).</div>
+    </section>
+
+    <section id="status" class="status hidden"></section>
+
+    <section id="result" class="card hidden"></section>
+
+    <footer class="footer">
+      <span id="meta"></span>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
