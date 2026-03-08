@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Player Profile</title>
+  <meta name="description" content="Player profile across RuneScape Leagues." />
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <a class="brand" href="/">
+        <div class="title">Leagues Leaderboard</div>
+        <div class="tag">OSRS • RS3 • Combined</div>
+      </a>
+
+      <nav class="navlinks">
+        <a href="/" class="navitem navitem-active">Leaderboards</a>
+        <a href="/stats.html" class="navitem">Stats</a>
+
+        <div class="dropdown">
+          <button class="dropbtn" type="button">Info ▾</button>
+          <div class="dropdown-content">
+            <a href="/relics.html">Relics</a>
+            <a href="/areas.html">Areas</a>
+          </div>
+        </div>
+
+        <a href="/about.html" class="navitem">About</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h1 id="playerName">Player Profile</h1>
+      <p id="playerSubtitle">Loading player data…</p>
+    </section>
+
+    <section class="panel">
+      <div class="searchbar">
+        <input id="search" type="text" placeholder="Search any player…" autocomplete="off" />
+        <button id="clear" type="button">Clear</button>
+      </div>
+
+      <div id="searchResults" aria-live="polite"></div>
+    </section>
+
+    <section class="panel">
+      <div class="profile-summary" id="profileSummary"></div>
+    </section>
+
+    <section class="panel profile-leagues">
+      <h2 class="section-title">OSRS Leagues</h2>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th>League</th>
+              <th>Points</th>
+              <th>Rank</th>
+              <th>Trophy</th>
+            </tr>
+          </thead>
+          <tbody id="osrsLeagueBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel profile-leagues">
+      <h2 class="section-title">RS3 Leagues</h2>
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th>League</th>
+              <th>Points</th>
+              <th>Rank</th>
+              <th>Trophy</th>
+            </tr>
+          </thead>
+          <tbody id="rs3LeagueBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel" id="profileError" style="display:none;">
+      <h2 class="section-title">Not found</h2>
+      <p class="muted">
+        This player profile could not be loaded.
+      </p>
+    </section>
+
+    <footer>
+      Data is community-built. If you spot missing merges or errors, add them to overrides/aliases and rebuild.
+    </footer>
+  </div>
+
+  <script src="/player.js"></script>
+</body>
+</html>

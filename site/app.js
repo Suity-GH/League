@@ -7,6 +7,10 @@ let PLAYERS_TOP = null
 
 const INDEX_CACHE = new Map()
 
+let CURRENT_TAB = "osrs"
+let SORT_COLUMN = "rank"
+let SORT_DIR = "asc"
+
 
 /* =========================================
    Helpers
@@ -32,6 +36,24 @@ function fmt(n) {
   return x.toLocaleString()
 }
 
+function trophyClass(trophy) {
+  if (!trophy) return ""
+
+  const t = String(trophy).toLowerCase()
+
+  if (t === "top 100") return "trophy-top100"
+  if (t === "true dragon") return "trophy-truedragon"
+  if (t === "dragon") return "trophy-dragon"
+  if (t === "rune") return "trophy-rune"
+  if (t === "adamant") return "trophy-adamant"
+  if (t === "mithril") return "trophy-mithril"
+  if (t === "steel") return "trophy-steel"
+  if (t === "iron") return "trophy-iron"
+  if (t === "bronze") return "trophy-bronze"
+
+  return ""
+}
+
 function getActiveTab() {
   const h = (location.hash || "").replace("#", "")
 
@@ -51,7 +73,6 @@ function setActiveTab(tab) {
 ========================================= */
 
 async function loadCoreData() {
-
   const [lb, pt] = await Promise.all([
     fetch("/data/leaderboards.json").then(r => r.json()),
     fetch("/data/players_top.json").then(r => r.json())
@@ -63,12 +84,42 @@ async function loadCoreData() {
 
 
 /* =========================================
+   Sorting
+========================================= */
+
+function compareValues(a, b, dir) {
+  if (typeof a === "string" || typeof b === "string") {
+    return String(a).localeCompare(String(b)) * dir
+  }
+
+  return ((Number(a) || 0) - (Number(b) || 0)) * dir
+}
+
+function sortRows(rows) {
+  const dir = SORT_DIR === "asc" ? 1 : -1
+
+  rows.sort((a, b) => {
+    const primary = compareValues(a[SORT_COLUMN], b[SORT_COLUMN], dir)
+    if (primary !== 0) return primary
+
+    return compareValues(a.rank, b.rank, 1)
+  })
+}
+
+function sortIndicator(col) {
+  if (SORT_COLUMN !== col) return ""
+  return SORT_DIR === "asc" ? " ▲" : " ▼"
+}
+
+
+/* =========================================
    Leaderboard rendering
 ========================================= */
 
 function renderLeaderboard(tabName) {
-
   if (!LEADERBOARDS || !PLAYERS_TOP) return
+
+  CURRENT_TAB = tabName
 
   const tab = LEADERBOARDS.tabs[tabName]
   const ids = tab.top
@@ -79,68 +130,103 @@ function renderLeaderboard(tabName) {
 
   if (!tbody || !thead) return
 
-
-  /* Build header */
-
   thead.innerHTML = `
     <tr>
-      <th>Rank</th>
-      <th>Player</th>
-      <th>Total</th>
-      ${leagues.map(c => `<th>${c}</th>`).join("")}
+      <th data-sort="rank">Rank${sortIndicator("rank")}</th>
+      <th data-sort="name">Player${sortIndicator("name")}</th>
+      <th data-sort="total">Total${sortIndicator("total")}</th>
+      ${leagues.map(c => `<th data-sort="${c}">${c}${sortIndicator(c)}</th>`).join("")}
     </tr>
   `
-
-
-  /* Build rows */
 
   const rows = []
 
   for (let i = 0; i < ids.length; i++) {
-
     const id = ids[i]
     const p = PLAYERS_TOP[id]
-
     if (!p) continue
 
     const total = p[tab.total] ?? 0
 
-    const cols = leagues.map(code => {
+    const row = {
+      id,
+      name: p.name,
+      rank: i + 1,
+      total,
+      player: p
+    }
 
+    for (const code of leagues) {
       const arr = p.leagues?.[code]
-      const pts = arr ? arr[0] : null
+      row[code] = arr ? arr[0] : -1
+    }
 
-      return `<td>${pts == null ? "" : fmt(pts)}</td>`
+    rows.push(row)
+  }
 
+  sortRows(rows)
+
+  const html = []
+
+  for (const r of rows) {
+    const p = r.player
+
+    const cols = leagues.map(code => {
+      const arr = p.leagues?.[code]
+      if (!arr) return "<td></td>"
+
+      const pts = arr[0]
+      const trophy = arr[2]
+      const cls = trophyClass(trophy)
+
+      return `
+        <td>
+          <span class="trophy-badge ${cls}">${fmt(pts)}</span>
+        </td>
+      `
     }).join("")
 
-    rows.push(`
+    html.push(`
       <tr>
-        <td>${i + 1}</td>
+        <td>${r.rank}</td>
         <td>
-          <a href="/player.html?id=${encodeURIComponent(id)}&key=${encodeURIComponent(p.key)}">
+          <a href="/player.html?id=${encodeURIComponent(r.id)}&key=${encodeURIComponent(p.key)}">
             ${p.name}
           </a>
         </td>
-        <td>${fmt(total)}</td>
+        <td>${fmt(r.total)}</td>
         ${cols}
       </tr>
     `)
   }
 
-  tbody.innerHTML = rows.join("")
+  tbody.innerHTML = html.join("")
+
+  thead.querySelectorAll("th[data-sort]").forEach(th => {
+    th.style.cursor = "pointer"
+
+    th.onclick = () => {
+      const col = th.dataset.sort
+
+      if (SORT_COLUMN === col) {
+        SORT_DIR = SORT_DIR === "asc" ? "desc" : "asc"
+      } else {
+        SORT_COLUMN = col
+        SORT_DIR = col === "name" ? "asc" : "desc"
+      }
+
+      renderLeaderboard(CURRENT_TAB)
+    }
+  })
 }
 
 
 function syncTabUI(tabName) {
-
   document.querySelectorAll("[data-tab]").forEach(btn => {
-
     btn.classList.toggle(
       "active",
       btn.getAttribute("data-tab") === tabName
     )
-
   })
 }
 
@@ -150,7 +236,6 @@ function syncTabUI(tabName) {
 ========================================= */
 
 async function loadIndexBucket(bucket) {
-
   if (INDEX_CACHE.has(bucket))
     return INDEX_CACHE.get(bucket)
 
@@ -168,14 +253,12 @@ async function loadIndexBucket(bucket) {
   return data
 }
 
-
 /*
 row format:
 [id, name, key, osrs_total, rs3_total, combined_total]
 */
 
 function scoreRow(row, qAlnum) {
-
   const nameAlnum = String(row[1] || "")
     .toLowerCase()
     .replace(/[^a-z0-9]/g, "")
@@ -198,9 +281,7 @@ function scoreRow(row, qAlnum) {
   return -Infinity
 }
 
-
 function renderSearchResults(results, q) {
-
   const box = document.getElementById("searchResults")
   if (!box) return
 
@@ -210,16 +291,13 @@ function renderSearchResults(results, q) {
   }
 
   if (!results.length) {
-
     box.innerHTML = `
       <div class="result empty">No matches</div>
     `
-
     return
   }
 
   box.innerHTML = results.map(row => {
-
     const id = row[0]
     const name = row[1]
     const key = row[2]
@@ -250,27 +328,21 @@ function renderSearchResults(results, q) {
 ========================================= */
 
 function debounce(fn, ms = 120) {
-
   let t
 
   return (...args) => {
-
     clearTimeout(t)
     t = setTimeout(() => fn(...args), ms)
-
   }
 }
 
-
 const onSearchInput = debounce(async () => {
-
   const input = document.getElementById("search")
   const clearBtn = document.getElementById("clear")
 
   if (!input) return
 
   const raw = input.value
-
   const q = norm(raw)
   const qAlnum = q.replace(/[^a-z0-9]/g, "")
 
@@ -283,18 +355,15 @@ const onSearchInput = debounce(async () => {
   }
 
   const bucket = bucketFor(q)
-
   const bucketRows = await loadIndexBucket(bucket)
 
   const scored = []
 
   for (const row of bucketRows) {
-
     const s = scoreRow(row, qAlnum)
 
     if (s > -Infinity)
       scored.push({ row, s, total: row[5] || 0 })
-
   }
 
   scored.sort((a, b) =>
@@ -304,14 +373,10 @@ const onSearchInput = debounce(async () => {
   )
 
   const top = scored.slice(0, 20).map(x => x.row)
-
   renderSearchResults(top, q)
-
 }, 120)
 
-
 function wireSearchUI() {
-
   const input = document.getElementById("search")
   const clearBtn = document.getElementById("clear")
 
@@ -319,21 +384,15 @@ function wireSearchUI() {
     input.addEventListener("input", onSearchInput)
 
   if (clearBtn) {
-
     clearBtn.style.visibility = "hidden"
 
     clearBtn.addEventListener("click", () => {
-
       if (!input) return
 
       input.value = ""
-
       clearBtn.style.visibility = "hidden"
-
       renderSearchResults([], "")
-
       input.focus()
-
     })
   }
 }
@@ -344,30 +403,18 @@ function wireSearchUI() {
 ========================================= */
 
 function wireTabs() {
-
   document.querySelectorAll("[data-tab]").forEach(btn => {
-
     btn.addEventListener("click", () => {
-
       const tab = btn.getAttribute("data-tab")
-
       if (!tab) return
-
       setActiveTab(tab)
-
     })
-
   })
 
-
   window.addEventListener("hashchange", () => {
-
     const tab = getActiveTab()
-
     syncTabUI(tab)
-
     renderLeaderboard(tab)
-
   })
 }
 
@@ -377,7 +424,6 @@ function wireTabs() {
 ========================================= */
 
 async function boot() {
-
   await loadCoreData()
 
   wireTabs()
@@ -387,7 +433,6 @@ async function boot() {
 
   syncTabUI(tab)
   renderLeaderboard(tab)
-
 }
 
 boot()
