@@ -4,7 +4,7 @@ const LEAGUE_NAMES = {
   SRL: "Shattered Relics",
   TBLR: "Trailblazer Reloaded",
   REL: "Raging Echoes",
-  CATA: "Cataclysm"
+  CATA: "Catalyst"
 }
 
 const LEAGUE_ICONS = {
