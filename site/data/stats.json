@@ -22,17 +22,17 @@
     },
 
     "TBL": {
-      "players": 0,
+      "players": 283945,
       "trophies": {
         "Top 100": 100,
         "True Dragon": 0,
         "Dragon": 2842,
-        "Rune": 0,
-        "Adamant": 0,
-        "Mithril": 0,
-        "Steel": 0,
-        "Iron": 0,
-        "Bronze": 0
+        "Rune": 14197,
+        "Adamant": 56789,
+        "Mithril": 113578,
+        "Steel": 170367,
+        "Iron": 227156,
+        "Bronze": 283945
       },
       "relics": {
         "T2": 0,
