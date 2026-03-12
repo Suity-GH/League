@@ -1,0 +1,168 @@
+{
+  "osrs": [
+    {
+      "task": "Maximum total level",
+      "icon": "/icons/tasks/total_level.png",
+      "region": "Global",
+      "SRL": "6.5%",
+      "TBLR": "5.1%",
+      "REL": "6%"
+    },
+    {
+      "task": "Infernal cape",
+      "icon": "/icons/tasks/infernal_cape.png",
+      "region": "Karamja",
+      "SRL": "5.2%",
+      "TBLR": "5.6%",
+      "REL": "17.1%"
+    },
+    {
+      "task": "Sacrifice a Fire cape",
+      "icon": "/icons/tasks/fire_cape.png",
+      "region": "Karamja",
+      "SRL": "12%",
+      "TBLR": "37.5%",
+      "REL": "41.3%"
+    },
+    {
+      "task": "Fire cape",
+      "icon": "/icons/tasks/fire_cape.png",
+      "region": "Karamja",
+      "SRL": "31%",
+      "TBLR": "55.5%",
+      "REL": "64.6%"
+    },
+    {
+      "task": "Fight Caves CAs",
+      "icon": "/icons/tasks/fight_caves_ca.png",
+      "region": "Karamja",
+      "SRL": null,
+      "TBLR": "1.4%",
+      "REL": "4.3%"
+    },
+    {
+      "task": "Inferno CAs",
+      "icon": "/icons/tasks/zuk_ca.png",
+      "region": "Karamja",
+      "SRL": null,
+      "TBLR": "0.2%",
+      "REL": "1%"
+    },
+    {
+      "task": "Elysian spirit shield",
+      "icon": "/icons/tasks/elysian.png",
+      "region": "Wilderness",
+      "SRL": "<0.1%",
+      "TBLR": "0.6%",
+      "REL": "1.6%"
+    },
+    {
+      "task": "Twisted bow",
+      "icon": "/icons/tasks/twisted_bow.png",
+      "region": "Zeah",
+      "SRL": "0.9%",
+      "TBLR": "5.3%",
+      "REL": "14.3%"
+    },
+    {
+      "task": "Scythe of Vitur",
+      "icon": "/icons/tasks/scythe_of_vitur.png",
+      "region": "Morytania",
+      "SRL": "1.7%",
+      "TBLR": "7.5%",
+      "REL": "22.8%"
+    },
+    {
+      "task": "Tumeken's Shadow",
+      "icon": "/icons/tasks/tumekens_shadow.png",
+      "region": "Desert",
+      "SRL": null,
+      "TBLR": "10.2%",
+      "REL": "10.4%"
+    },
+    {
+      "task": "TzHaar-Ket-Rak league-only challenge",
+      "icon": "/icons/tasks/zuk_ca.png",
+      "region": "Karamja",
+      "SRL": null,
+      "TBLR": "0.5%",
+      "REL": "1.8%"
+    },
+    {
+      "task": "Tutorial",
+      "icon": "/icons/regions/global.png",
+      "region": "Global",
+      "SRL": "100%",
+      "TBLR": "98%",
+      "REL": "95.9%"
+    },
+    {
+      "task": "Chambers of Xeric CAs",
+      "icon": "/icons/tasks/cox_ca.png",
+      "region": "Zeah",
+      "SRL": null,
+      "TBLR": "0.1%",
+      "REL": "0.2%"
+    },
+    {
+      "task": "Theatre of Blood CAs",
+      "icon": "/icons/tasks/tob_ca.png",
+      "region": "Morytania",
+      "SRL": null,
+      "TBLR": "<0.1%",
+      "REL": "0.1%"
+    },
+    {
+      "task": "Tombs of Amascut CAs",
+      "icon": "/icons/tasks/toa_ca.png",
+      "region": "Desert",
+      "SRL": null,
+      "TBLR": "0.1%",
+      "REL": "0.2%"
+    },
+    {
+      "task": "Boss pet",
+      "icon": "/icons/tasks/boss_pet.png",
+      "region": "Global",
+      "SRL": "14%",
+      "TBLR": "18.6%",
+      "REL": "23.6%"
+    },
+    {
+      "task": "Skilling pet",
+      "icon": "/icons/tasks/skilling_pet.png",
+      "region": "Global",
+      "SRL": "9.8%",
+      "TBLR": "12.7%",
+      "REL": "19.6%"
+    },
+    {
+      "task": "Gout tuber",
+      "icon": "/icons/tasks/gout_tuber.png",
+      "region": "Karamja",
+      "SRL": "9.3%",
+      "TBLR": "26.4%",
+      "REL": "21%"
+    }
+  ],
+  "rs3": [
+    {
+      "task": "Fire cape",
+      "icon": "/icons/tasks/fire_cape.png",
+      "region": "Global",
+      "CATA": "35.1%"
+    },
+    {
+      "task": "Fight Kiln",
+      "icon": "/icons/tasks/kiln_cape.png",
+      "region": "Global",
+      "CATA": "21.5%"
+    },
+    {
+      "task": "Maximum total level",
+      "icon": "/icons/tasks/total_level.png",
+      "region": "Global",
+      "CATA": "8.5%"
+    }
+  ]
+}

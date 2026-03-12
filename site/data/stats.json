@@ -3,8 +3,9 @@
     "TL": {
       "players": 109505,
       "trophies": {
+        "Cap": 0,
         "Top 100": 100,
-        "True Dragon": 0,
+        "True Dragon": 1103,
         "Dragon": 1103,
         "Rune": 5500,
         "Adamant": 21979,
@@ -13,19 +14,25 @@
         "Iron": 87650,
         "Bronze": 109505
       },
+      "trophy_points": {
+        "Cap": 91080,
+        "Top 100": 25950,
+        "True Dragon": 20830,
+        "Dragon": 20830
+      },
       "relics": {
         "T2": 70450,
         "T3": 51523,
         "T4": 38520,
-        "T5": 23355 
+        "T5": 23355
       }
     },
-
     "TBL": {
       "players": 283945,
       "trophies": {
+        "Cap": 0,
         "Top 100": 100,
-        "True Dragon": 0,
+        "True Dragon": 2842,
         "Dragon": 2842,
         "Rune": 14197,
         "Adamant": 56789,
@@ -34,34 +41,47 @@
         "Iron": 227156,
         "Bronze": 283945
       },
+      "trophy_points": {
+        "Cap": 77730,
+        "Top 100": 68750,
+        "True Dragon": 56310,
+        "Dragon": 56310
+      },
       "relics": {
         "T2": 0,
         "T3": 0,
         "T4": 0,
         "T5": 0,
-	"T6": 0,
-	"T7": 0,
-	"T8": 0 
+        "T6": 0,
+        "T7": 0,
+        "T8": 0
       }
     },
-
     "SRL": {
       "players": 181915,
       "trophies": {
+        "Cap": 0,
         "Top 100": 100,
-        "True Dragon": 0,
+        "True Dragon": 1821,
         "Dragon": 1821,
         "Rune": 9100,
         "Adamant": 36405,
         "Mithril": 72799,
         "Steel": 109188,
         "Iron": 145606,
-        "Bronze": 181915 
+        "Bronze": 181915
+      },
+      "trophy_points": {
+        "Cap": 82695,
+        "Top 100": 61770,
+        "True Dragon": 52454,
+        "Dragon": 52545
       }
     },
     "TBLR": {
       "players": 358933,
       "trophies": {
+        "Cap": 2,
         "Top 100": 100,
         "True Dragon": 3599,
         "Dragon": 12778,
@@ -72,20 +92,26 @@
         "Iron": 235496,
         "Bronze": 271373
       },
+      "trophy_points": {
+        "Cap": 92580,
+        "Top 100": 83400,
+        "True Dragon": 56840,
+        "Dragon": 56000
+      },
       "relics": {
         "T2": 327546,
         "T3": 301235,
         "T4": 282334,
         "T5": 249498,
-	"T6": 210357,
-	"T7": 159474,
-	"T8": 108875 
+        "T6": 210357,
+        "T7": 159474,
+        "T8": 108875
       }
     },
-
     "REL": {
       "players": 406342,
       "trophies": {
+        "Cap": 39,
         "Top 100": 100,
         "True Dragon": 4067,
         "Dragon": 23186,
@@ -96,20 +122,26 @@
         "Iron": 310328,
         "Bronze": 337653
       },
+      "trophy_points": {
+        "Cap": 84200,
+        "Top 100": 83240,
+        "True Dragon": 62450,
+        "Dragon": 60000
+      },
       "relics": {
         "T2": 367618,
         "T3": 348034,
         "T4": 329713,
         "T5": 301786,
-	"T6": 274334,
-	"T7": 209292,
-	"T8": 145407 
+        "T6": 274334,
+        "T7": 209292,
+        "T8": 145407
       }
     },
-
     "CATA": {
       "players": 121342,
       "trophies": {
+        "Cap": 4,
         "Top 100": 100,
         "True Dragon": 1224,
         "Dragon": 6406,
@@ -118,15 +150,21 @@
         "Mithril": 33887,
         "Steel": 49137,
         "Iron": 70058,
-        "Bronze": 85293 
+        "Bronze": 85293
+      },
+      "trophy_points": {
+        "Cap": 106220,
+        "Top 100": 90000,
+        "True Dragon": 63900,
+        "Dragon": 60000
       },
       "relics": {
         "T2": 103802,
         "T3": 85293,
         "T4": 73032,
         "T5": 63589,
-	"T6": 45655,
-	"T7": 32954
+        "T6": 45655,
+        "T7": 32954
       }
     }
   }

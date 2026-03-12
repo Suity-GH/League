@@ -437,6 +437,22 @@ PLAYER JS CSS
   font-weight:700;
 }
 
+.trophy-cap{
+  color:#111;
+  background:linear-gradient(
+    135deg,
+    #5f6874 0%,
+    #aeb8c4 30%,
+    #eef3f8 50%,
+    #aeb8c4 70%,
+    #5f6874 100%
+  );
+  border-color:rgba(220,230,240,.7);
+  text-shadow:0 0 4px rgba(255,255,255,.35);
+  position:relative;
+  overflow:hidden;
+}
+
 .trophy-top100{
   color:#111;
   background:linear-gradient(
@@ -551,9 +567,9 @@ PLAYER JS CSS
 }
 
 .trophy-dragon{
-  color:#ffd8d8;
-  background:rgba(255,92,92,.16);
-  border-color:rgba(255,92,92,.42);
+  color:#ffe0e0;
+  background:rgba(255,40,40,.20);
+  border-color:rgba(255,40,40,.55);
 }
 
 .trophy-rune{
@@ -592,7 +608,8 @@ PLAYER JS CSS
   border-color:rgba(205,127,80,.45);
 }
 
-.trophy-top100::after{
+.trophy-top100::after,
+.trophy-cap::after{
   content:"";
   position:absolute;
   top:0;
@@ -886,4 +903,290 @@ html{
 
 .stats-table-relics .league-name-cell{
   min-width:auto;
+}
+
+.stats-table-tasks{
+  width:100%;
+  table-layout:fixed;
+}
+
+.stats-table-tasks th,
+.stats-table-tasks td{
+  vertical-align:middle;
+}
+
+.stats-table-tasks th:nth-child(1),
+.stats-table-tasks td:nth-child(1){
+  width:34%;
+}
+
+.stats-table-tasks th:nth-child(2),
+.stats-table-tasks td:nth-child(2){
+  width:24%;
+}
+
+.stats-table-tasks th:nth-child(n+3),
+.stats-table-tasks td:nth-child(n+3){
+  text-align:center;
+}
+
+.task-cell{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  white-space:nowrap;
+  min-width:0;
+}
+
+.task-head-cell{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  white-space:nowrap;
+}
+
+.task-head-league{
+  justify-content:center;
+}
+
+.task-pct-cell{
+  text-align:center;
+}
+
+.task-icon{
+  width:20px;
+  height:20px;
+  object-fit:contain;
+  flex:0 0 18px;
+}
+
+.sort-indicator{
+  display:inline-block;
+  min-width:12px;
+}
+
+/* =========================================================
+   PERFECT DRAGON BADGES
+========================================================= */
+
+/* Player name layout */
+#playerName{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+/* =========================================================
+   Base badge
+========================================================= */
+
+#playerName .profile-perfect-badge,
+.section-title .perfect-dragon-badge{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:6px 13px;
+  border-radius:999px;
+
+  font-size:12px;
+  font-weight:700;
+  font-family:inherit;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+
+  line-height:1;
+  white-space:nowrap;
+  overflow:hidden;
+
+  color:#ffffff;
+  text-shadow:
+    0 1px 2px rgba(0,0,0,.8),
+    0 0 2px rgba(0,0,0,.7);
+
+  border:1px solid rgba(120,200,255,.65);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.25),
+    0 0 12px rgba(70,160,255,.25);
+}
+
+/* =========================================================
+   Sapphire blue gradient
+========================================================= */
+
+.perfect-osrs{
+  background:linear-gradient(
+    135deg,
+    #0f2f57 0%,
+    #1f5ea5 28%,
+    #57b8ff 52%,
+    #1f5ea5 74%,
+    #0f2f57 100%
+  );
+}
+
+.perfect-rs3{
+  background:linear-gradient(
+    135deg,
+    #17285d 0%,
+    #2e4fb0 28%,
+    #74a8ff 52%,
+    #2e4fb0 74%,
+    #17285d 100%
+  );
+}
+
+.perfect-combined{
+  background:linear-gradient(
+    135deg,
+    #123d63 0%,
+    #2174bf 24%,
+    #8dd7ff 50%,
+    #2174bf 76%,
+    #123d63 100%
+  );
+
+  border-color:rgba(170,230,255,.9);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.35),
+    0 0 16px rgba(120,210,255,.35);
+}
+
+/* =========================================================
+   Diamond twinkles (4 different positions)
+========================================================= */
+
+#playerName .profile-perfect-badge::before,
+#playerName .profile-perfect-badge::after,
+.section-title .perfect-dragon-badge::before,
+.section-title .perfect-dragon-badge::after{
+
+  position:absolute;
+  pointer-events:none;
+  font-size:10px;
+  color:#ffffff;
+
+  text-shadow:
+    0 0 4px rgba(255,255,255,.95),
+    0 0 8px rgba(180,230,255,.75);
+}
+
+/* first two stars */
+#playerName .profile-perfect-badge::before,
+.section-title .perfect-dragon-badge::before{
+  content:"✦";
+  top:2px;
+  left:18%;
+
+  animation:diamondTwinkleA 2.6s infinite ease-in-out;
+
+  /* second sparkle */
+  text-shadow:
+    0 0 4px rgba(255,255,255,.95),
+    0 0 8px rgba(180,230,255,.75),
+    36px 10px 0 rgba(255,255,255,1);
+}
+
+/* third + fourth stars */
+#playerName .profile-perfect-badge::after,
+.section-title .perfect-dragon-badge::after{
+  content:"✦";
+  bottom:2px;
+  right:20%;
+
+  animation:diamondTwinkleB 3.2s infinite ease-in-out;
+
+  text-shadow:
+    0 0 4px rgba(255,255,255,.95),
+    0 0 8px rgba(180,230,255,.75),
+    -34px -12px 0 rgba(255,255,255,1);
+}
+
+/* =========================================================
+   Twinkle animations
+========================================================= */
+
+@keyframes diamondTwinkleA{
+  0%, 100%{
+    opacity:0;
+  }
+  12%{
+    opacity:.03;
+  }
+  20%{
+    opacity:.08;
+  }
+  28%{
+    opacity:.18;
+  }
+  36%{
+    opacity:.35;
+  }
+  44%{
+    opacity:.62;
+  }
+  50%{
+    opacity:.9;
+  }
+  56%{
+    opacity:1;
+  }
+  62%{
+    opacity:.82;
+  }
+  70%{
+    opacity:.55;
+  }
+  78%{
+    opacity:.28;
+  }
+  86%{
+    opacity:.1;
+  }
+  94%{
+    opacity:.02;
+  }
+}
+
+@keyframes diamondTwinkleB{
+  0%, 100%{
+    opacity:0;
+  }
+  18%{
+    opacity:.02;
+  }
+  26%{
+    opacity:.06;
+  }
+  34%{
+    opacity:.14;
+  }
+  42%{
+    opacity:.3;
+  }
+  50%{
+    opacity:.58;
+  }
+  56%{
+    opacity:.84;
+  }
+  62%{
+    opacity:1;
+  }
+  68%{
+    opacity:.86;
+  }
+  76%{
+    opacity:.6;
+  }
+  84%{
+    opacity:.3;
+  }
+  92%{
+    opacity:.08;
+  }
 }

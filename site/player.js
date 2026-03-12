@@ -60,6 +60,26 @@ function trophyClass(trophy) {
   return ""
 }
 
+function getPerfectDragonLabel(player) {
+  if (player.perfect_combined) return "Perfect Combined Dragon"
+  if (player.perfect_osrs) return "Perfect OSRS Dragon"
+  if (player.perfect_rs3) return "Perfect RS3 Dragon"
+  return ""
+}
+
+function getPerfectDragonClass(player) {
+  if (player.perfect_combined) return "perfect-combined"
+  if (player.perfect_osrs) return "perfect-osrs"
+  if (player.perfect_rs3) return "perfect-rs3"
+  return ""
+}
+
+function renderSectionTitle(title, badgeText, badgeClass) {
+  return badgeText
+    ? `${title} <span class="perfect-dragon-badge ${badgeClass}">${badgeText}</span>`
+    : title
+}
+
 function renderSummary(player) {
   const box = document.getElementById("profileSummary")
   if (!box) return
@@ -113,6 +133,8 @@ function buildLeagueRows(player, leagueOrder) {
 function renderLeagues(player) {
   const osrsBody = document.getElementById("osrsLeagueBody")
   const rs3Body = document.getElementById("rs3LeagueBody")
+  const osrsTitle = document.getElementById("osrsLeaguesTitle")
+  const rs3Title = document.getElementById("rs3LeaguesTitle")
 
   if (!osrsBody || !rs3Body) return
 
@@ -121,6 +143,22 @@ function renderLeagues(player) {
 
   osrsBody.innerHTML = buildLeagueRows(player, osrsOrder)
   rs3Body.innerHTML = buildLeagueRows(player, rs3Order)
+
+  if (osrsTitle) {
+    osrsTitle.innerHTML = renderSectionTitle(
+      "OSRS Leagues",
+      player.perfect_osrs ? "Perfect OSRS Dragon" : "",
+      "perfect-osrs"
+    )
+  }
+
+  if (rs3Title) {
+    rs3Title.innerHTML = renderSectionTitle(
+      "RS3 Leagues",
+      player.perfect_rs3 ? "Perfect RS3 Dragon" : "",
+      "perfect-rs3"
+    )
+  }
 }
 
 function showError(message) {
@@ -316,7 +354,15 @@ async function loadPlayer() {
   const nameEl = document.getElementById("playerName")
   const subtitleEl = document.getElementById("playerSubtitle")
 
-  if (nameEl) nameEl.textContent = player.name
+  const bestPerfectLabel = getPerfectDragonLabel(player)
+  const bestPerfectClass = getPerfectDragonClass(player)
+
+  if (nameEl) {
+    nameEl.innerHTML = bestPerfectLabel
+      ? `${player.name} <span class="perfect-dragon-badge profile-perfect-badge ${bestPerfectClass}">${bestPerfectLabel}</span>`
+      : player.name
+  }
+
   if (subtitleEl) subtitleEl.textContent = `Profile for ${player.name}`
 
   renderSummary(player)

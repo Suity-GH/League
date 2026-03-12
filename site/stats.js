@@ -4,7 +4,7 @@ const LEAGUE_NAMES = {
   SRL: "Shattered Relics",
   TBLR: "Trailblazer Reloaded",
   REL: "Raging Echoes",
-  CATA: "Catalyst"
+  CATA: "Cataclysm"
 }
 
 const LEAGUE_ICONS = {
@@ -19,8 +19,15 @@ const LEAGUE_ICONS = {
 const OSRS_ORDER = ["TL", "TBL", "SRL", "TBLR", "REL"]
 const RS3_ORDER = ["CATA"]
 
+const TASK_OSRS = ["SRL", "TBLR", "REL"]
+const TASK_RS3 = ["CATA"]
+
 let STATS = null
+let TASKS = null
 let CURRENT_TAB = "trophies"
+
+let TASK_SORT_COLUMN = "task"
+let TASK_SORT_DIR = "asc"
 
 function fmt(n) {
   return Number(n || 0).toLocaleString()
@@ -32,7 +39,6 @@ function trimZeros(s) {
 
 function pct(v, total) {
   if (!total || !v) return ""
-
   const p = (v / total) * 100
 
   if (p >= 10) return trimZeros(p.toFixed(1)) + "%"
@@ -40,28 +46,70 @@ function pct(v, total) {
   return trimZeros(p.toFixed(3)) + "%"
 }
 
+function pctValue(v) {
+  if (v === null || v === undefined) return ""
+  return String(v)
+}
+
+function parsePctString(v) {
+  if (v === null || v === undefined || v === "") return -1
+
+  const s = String(v).trim()
+  if (s.startsWith("<")) {
+    const n = parseFloat(s.slice(1))
+    return Number.isFinite(n) ? n / 2 : -1
+  }
+
+  const n = parseFloat(s.replace("%", ""))
+  return Number.isFinite(n) ? n : -1
+}
+
 async function loadStats() {
   const r = await fetch("/data/stats.json")
-  if (!r.ok) {
-    throw new Error(`Failed to load stats.json (${r.status})`)
-  }
+  if (!r.ok) throw new Error("stats.json failed")
   return await r.json()
 }
 
-function trophyClass(trophy) {
-  const t = String(trophy || "").toLowerCase()
+async function loadTasks() {
+  const r = await fetch("/data/tasks.json")
+  if (!r.ok) throw new Error("tasks.json failed")
+  return await r.json()
+}
 
-  if (t === "top 100") return "trophy-top100"
-  if (t === "true dragon") return "trophy-truedragon"
-  if (t === "dragon") return "trophy-dragon"
-  if (t === "rune") return "trophy-rune"
-  if (t === "adamant") return "trophy-adamant"
-  if (t === "mithril") return "trophy-mithril"
-  if (t === "steel") return "trophy-steel"
-  if (t === "iron") return "trophy-iron"
-  if (t === "bronze") return "trophy-bronze"
+function trophyClass(t) {
+  const s = String(t || "").toLowerCase()
+
+  if (s === "cap") return "trophy-cap"
+  if (s === "top 100") return "trophy-top100"
+  if (s === "true dragon") return "trophy-truedragon"
+  if (s === "dragon") return "trophy-dragon"
+  if (s === "rune") return "trophy-rune"
+  if (s === "adamant") return "trophy-adamant"
+  if (s === "mithril") return "trophy-mithril"
+  if (s === "steel") return "trophy-steel"
+  if (s === "iron") return "trophy-iron"
+  if (s === "bronze") return "trophy-bronze"
 
   return ""
+}
+
+function regionIcon(region) {
+  const r = String(region || "").toLowerCase()
+
+  if (r === "karamja") return "/icons/regions/karamja.png"
+  if (r === "tirannwn") return "/icons/regions/tirannwn.png"
+  if (r === "fremennik") return "/icons/regions/fremennik.png"
+  if (r === "morytania") return "/icons/regions/morytania.png"
+  if (r === "desert") return "/icons/regions/desert.png"
+  if (r === "kandarin") return "/icons/regions/kandarin.png"
+  if (r === "asgarnia") return "/icons/regions/asgarnia.png"
+  if (r === "misthalin") return "/icons/regions/misthalin.png"
+  if (r === "zeah") return "/icons/regions/zeah.png"
+  if (r === "varlamore") return "/icons/regions/varlamore.png"
+  if (r === "wilderness") return "/icons/regions/wilderness.png"
+  if (r === "global") return "/icons/regions/global.png"
+
+  return "/icons/regions/global.png"
 }
 
 function buildLeagueCell(code) {
@@ -70,8 +118,19 @@ function buildLeagueCell(code) {
 
   return `
     <div class="league-name-cell">
-      ${icon ? `<img class="league-icon" src="${icon}" alt="${name} icon">` : ""}
+      ${icon ? `<img class="league-icon" src="${icon}" alt="">` : ""}
       <span>${name}</span>
+    </div>
+  `
+}
+
+function buildLeagueShortCell(code) {
+  const icon = LEAGUE_ICONS[code]
+
+  return `
+    <div class="league-name-cell">
+      ${icon ? `<img class="league-icon" src="${icon}" alt="">` : ""}
+      <span>${code}</span>
     </div>
   `
 }
@@ -87,8 +146,41 @@ function buildStatCell(v, total) {
   `
 }
 
+function buildThreeLineTrophyCell(trophy, league) {
+  const count = league.trophies?.[trophy] || 0
+  const points = league.trophy_points?.[trophy] || 0
+
+  let percent = pct(count, league.players)
+  if (!count) percent = "0%"
+
+  if (!count && !points) return `<td></td>`
+
+  return `
+    <td>
+      <span class="stats-value">${fmt(count)}</span>
+      <span class="stats-pct">${points ? fmt(points) + " pts" : ""}</span>
+      <span class="stats-pct">${percent}</span>
+    </td>
+  `
+}
+
+function buildTrophyStatCell(trophy, league) {
+  if (
+    trophy === "Cap" ||
+    trophy === "Top 100" ||
+    trophy === "True Dragon" ||
+    trophy === "Dragon"
+  ) {
+    return buildThreeLineTrophyCell(trophy, league)
+  }
+
+  const count = league.trophies?.[trophy] || 0
+  return buildStatCell(count, league.players)
+}
+
 function buildTrophyTable(order) {
   const trophies = [
+    "Cap",
     "Top 100",
     "True Dragon",
     "Dragon",
@@ -103,11 +195,7 @@ function buildTrophyTable(order) {
   let head = `<tr><th>League</th><th>Players</th>`
 
   for (const t of trophies) {
-    head += `
-      <th>
-        <span class="trophy-badge ${trophyClass(t)}">${t}</span>
-      </th>
-    `
+    head += `<th><span class="trophy-badge ${trophyClass(t)}">${t}</span></th>`
   }
 
   head += `</tr>`
@@ -123,8 +211,7 @@ function buildTrophyTable(order) {
     rows += `<td><span class="stats-value">${fmt(league.players)}</span></td>`
 
     for (const t of trophies) {
-      const v = league.trophies?.[t] || 0
-      rows += buildStatCell(v, league.players)
+      rows += buildTrophyStatCell(t, league)
     }
 
     rows += `</tr>`
@@ -162,8 +249,7 @@ function buildRelicTable(order) {
     rows += `<td><span class="stats-value">${fmt(league.players)}</span></td>`
 
     for (const t of tiers) {
-      const v = league.relics?.[t] || 0
-      rows += buildStatCell(v, league.players)
+      rows += buildStatCell(league.relics?.[t], league.players)
     }
 
     rows += `</tr>`
@@ -171,7 +257,7 @@ function buildRelicTable(order) {
 
   return `
     <div class="tablewrap">
-      <table class="stats-table stats-table-relics">
+      <table class="stats-table">
         <thead>${head}</thead>
         <tbody>${rows}</tbody>
       </table>
@@ -179,69 +265,188 @@ function buildRelicTable(order) {
   `
 }
 
-function renderBlock(title, tableHtml) {
-  return `
-    <section class="panel">
-      <h2 class="section-title">${title}</h2>
-      ${tableHtml}
-    </section>
-  `
+function sortIndicator(col) {
+  if (TASK_SORT_COLUMN !== col) return ""
+  return TASK_SORT_DIR === "asc" ? " ▲" : " ▼"
 }
 
-function render() {
-  const box = document.getElementById("statsContent")
-  if (!box || !STATS) return
+function sortedTaskRows(rows) {
+  const out = [...(rows || [])]
 
-  if (CURRENT_TAB === "trophies") {
-    box.innerHTML = `
-      ${renderBlock("OSRS Leagues", buildTrophyTable(OSRS_ORDER))}
-      ${renderBlock("RS3 Leagues", buildTrophyTable(RS3_ORDER))}
-    `
-  } else {
-    box.innerHTML = `
-      ${renderBlock("OSRS Leagues", buildRelicTable(OSRS_ORDER))}
-      ${renderBlock("RS3 Leagues", buildRelicTable(RS3_ORDER))}
+  out.sort((a, b) => {
+    let av, bv
+
+    if (TASK_SORT_COLUMN === "task" || TASK_SORT_COLUMN === "region") {
+      av = String(a[TASK_SORT_COLUMN] || "").toLowerCase()
+      bv = String(b[TASK_SORT_COLUMN] || "").toLowerCase()
+
+      if (av < bv) return TASK_SORT_DIR === "asc" ? -1 : 1
+      if (av > bv) return TASK_SORT_DIR === "asc" ? 1 : -1
+      return 0
+    }
+
+    av = parsePctString(a[TASK_SORT_COLUMN])
+    bv = parsePctString(b[TASK_SORT_COLUMN])
+
+    if (av < bv) return TASK_SORT_DIR === "asc" ? -1 : 1
+    if (av > bv) return TASK_SORT_DIR === "asc" ? 1 : -1
+
+    const at = String(a.task || "").toLowerCase()
+    const bt = String(b.task || "").toLowerCase()
+    if (at < bt) return -1
+    if (at > bt) return 1
+    return 0
+  })
+
+  return out
+}
+
+function buildTasksTable(rows, leagues) {
+  const sortedRows = sortedTaskRows(rows)
+
+  let head = `<tr>`
+
+  head += `
+    <th data-task-sort="task">
+      <div class="task-head-cell">
+        <span>Task</span>
+        <span class="sort-indicator">${sortIndicator("task")}</span>
+      </div>
+    </th>
+  `
+
+  head += `
+    <th data-task-sort="region">
+      <div class="task-head-cell">
+        <span>Region</span>
+        <span class="sort-indicator">${sortIndicator("region")}</span>
+      </div>
+    </th>
+  `
+
+  for (const code of leagues) {
+    head += `
+      <th data-task-sort="${code}">
+        <div class="task-head-cell task-head-league">
+          ${LEAGUE_ICONS[code] ? `<img class="league-icon" src="${LEAGUE_ICONS[code]}" alt="">` : ""}
+          <span>${code}</span>
+          <span class="sort-indicator">${sortIndicator(code)}</span>
+        </div>
+      </th>
     `
   }
-}
 
-function showError(message) {
-  const box = document.getElementById("statsContent")
-  if (!box) return
+  head += `</tr>`
 
-  box.innerHTML = `
-    <div class="result empty">
-      ${message}
+  let body = ""
+
+  for (const row of sortedRows) {
+    body += `<tr>`
+
+    body += `
+      <td>
+        <div class="task-cell">
+          ${row.icon ? `<img class="task-icon" src="${row.icon}" alt="">` : ""}
+          <span>${row.task || ""}</span>
+        </div>
+      </td>
+    `
+
+    body += `
+      <td>
+        <div class="task-cell">
+          <img class="task-icon" src="${regionIcon(row.region)}" alt="">
+          <span>${row.region || ""}</span>
+        </div>
+      </td>
+    `
+
+    for (const code of leagues) {
+      const v = row[code]
+
+      body += `
+        <td class="task-pct-cell">
+          <span class="stats-value">${pctValue(v)}</span>
+        </td>
+      `
+    }
+
+    body += `</tr>`
+  }
+
+  return `
+    <div class="tablewrap">
+      <table class="stats-table stats-table-tasks">
+        <thead>${head}</thead>
+        <tbody>${body}</tbody>
+      </table>
     </div>
   `
 }
 
-function wireTabs() {
-  document.querySelectorAll("[data-tab]").forEach(btn => {
-    btn.onclick = () => {
-      CURRENT_TAB = btn.dataset.tab
+function bindTaskSortHandlers() {
+  document.querySelectorAll("th[data-task-sort]").forEach(th => {
+    th.style.cursor = "pointer"
 
-      document.querySelectorAll("[data-tab]").forEach(b => {
-        b.classList.toggle("active", b === btn)
-      })
+    th.onclick = () => {
+      const col = th.dataset.taskSort
+
+      if (TASK_SORT_COLUMN === col) {
+        TASK_SORT_DIR = TASK_SORT_DIR === "asc" ? "desc" : "asc"
+      } else {
+        TASK_SORT_COLUMN = col
+        TASK_SORT_DIR = col === "task" || col === "region" ? "asc" : "desc"
+      }
 
       render()
     }
   })
-
-  const first = document.querySelector('[data-tab="trophies"]')
-  if (first) first.classList.add("active")
 }
 
-async function boot() {
-  try {
-    STATS = await loadStats()
-    wireTabs()
-    render()
-  } catch (err) {
-    console.error(err)
-    showError("Failed to load stats.json.")
+function render() {
+  const box = document.getElementById("statsContent")
+  if (!box) return
+
+  if (CURRENT_TAB === "trophies") {
+    box.innerHTML =
+      buildTrophyTable(OSRS_ORDER) +
+      buildTrophyTable(RS3_ORDER)
+    return
+  }
+
+  if (CURRENT_TAB === "relics") {
+    box.innerHTML = buildRelicTable(OSRS_ORDER)
+    return
+  }
+
+  if (CURRENT_TAB === "tasks") {
+    box.innerHTML =
+      buildTasksTable(TASKS?.osrs || [], TASK_OSRS) +
+      buildTasksTable(TASKS?.rs3 || [], TASK_RS3)
+
+    bindTaskSortHandlers()
   }
 }
 
-boot()
+function setTab(tab) {
+  CURRENT_TAB = tab
+
+  document.querySelectorAll("[data-tab]").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.tab === tab)
+  })
+
+  render()
+}
+
+async function init() {
+  STATS = await loadStats()
+  TASKS = await loadTasks()
+
+  document.querySelectorAll("[data-tab]").forEach(btn => {
+    btn.onclick = () => setTab(btn.dataset.tab)
+  })
+
+  render()
+}
+
+init()
