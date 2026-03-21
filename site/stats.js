@@ -446,7 +446,7 @@ async function init() {
     btn.onclick = () => setTab(btn.dataset.tab)
   })
 
-  render()
+  setTab("trophies")
 }
 
 init()

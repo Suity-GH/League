@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Achievements</title>
+  <meta name="description" content="League firsts and perfect dragons across RuneScape Leagues." />
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <a class="brand" href="/">
+        <div class="title">Leagues Leaderboard</div>
+        <div class="tag">OSRS • RS3 • Combined</div>
+      </a>
+
+      <nav class="navlinks">
+        <a href="/" class="navitem">Leaderboards</a>
+        <a href="/stats.html" class="navitem">Stats</a>
+        <a href="/achievements.html" class="navitem navitem-active">Achievements</a>
+
+        <div class="dropdown">
+          <button class="dropbtn" type="button">Info ▾</button>
+          <div class="dropdown-content">
+            <a href="/relics.html">Relics (Coming soon)</a>
+            <a href="/areas.html">Areas (Coming soon)</a>
+          </div>
+        </div>
+
+        <a href="/about.html" class="navitem">About</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h1>Achievements</h1>
+      <p>League firsts, perfect dragons, and historic feats across every league.</p>
+    </section>
+
+    <section class="panel">
+  <h2 class="section-title">Perfect Dragons</h2>
+
+  <p class="ach-perfect-intro achievement-note" id="perfectTagline"></p>
+
+  <div class="ach-count-grid" id="perfectCountGrid"></div>
+
+  <div class="ach-page-subsection">
+    <h3 class="ach-page-subtitle ach-page-league-header">
+      <span>Perfect Combined Dragons</span>
+    </h3>
+    <div class="ach-listing" id="perfectCombinedList"></div>
+  </div>
+
+  <div class="ach-page-subsection">
+    <h3 class="ach-page-subtitle ach-page-league-header">
+      <span>Perfect OSRS Dragons</span>
+    </h3>
+    <div class="ach-listing" id="perfectOsrsList"></div>
+  </div>
+
+  <div class="ach-page-subsection">
+    <h3 class="ach-page-subtitle ach-page-league-header">
+      <span>Perfect RS3 Dragons</span>
+    </h3>
+    <div class="achievement-note" id="perfectRs3Note"></div>
+  </div>
+</section>
+
+    <section class="panel">
+      <h2 class="section-title">League Firsts</h2>
+      <div id="firstsByLeague"></div>
+    </section>
+
+    <footer>
+      Created by Suity
+    </footer>
+  </div>
+
+  <script src="/achievements.js"></script>
+</body>
+</html>

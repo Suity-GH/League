@@ -11,6 +11,18 @@ let CURRENT_TAB = "osrs"
 let SORT_COLUMN = "rank"
 let SORT_DIR = "asc"
 
+const PAGE_SIZE = 100
+let CURRENT_PAGE = 1
+
+const LEAGUE_ICONS = {
+  TL: "/icons/tl.png",
+  TBL: "/icons/tbl.png",
+  SRL: "/icons/srl.png",
+  TBLR: "/icons/tblr.png",
+  REL: "/icons/rel.png",
+  CATA: "/icons/cata.png"
+}
+
 
 /* =========================================
    Helpers
@@ -56,15 +68,16 @@ function trophyClass(trophy) {
 
 function getActiveTab() {
   const h = (location.hash || "").replace("#", "")
-
-  if (h === "rs3" || h === "combined" || h === "osrs")
-    return h
-
+  if (h === "rs3" || h === "combined" || h === "osrs") return h
   return "osrs"
 }
 
 function setActiveTab(tab) {
   location.hash = "#" + tab
+}
+
+function pageCount(totalRows) {
+  return Math.max(1, Math.ceil(totalRows / PAGE_SIZE))
 }
 
 
@@ -91,7 +104,6 @@ function compareValues(a, b, dir) {
   if (typeof a === "string" || typeof b === "string") {
     return String(a).localeCompare(String(b)) * dir
   }
-
   return ((Number(a) || 0) - (Number(b) || 0)) * dir
 }
 
@@ -101,7 +113,6 @@ function sortRows(rows) {
   rows.sort((a, b) => {
     const primary = compareValues(a[SORT_COLUMN], b[SORT_COLUMN], dir)
     if (primary !== 0) return primary
-
     return compareValues(a.rank, b.rank, 1)
   })
 }
@@ -113,31 +124,137 @@ function sortIndicator(col) {
 
 
 /* =========================================
-   Leaderboard rendering
+   Pager
 ========================================= */
 
-function renderLeaderboard(tabName) {
-  if (!LEADERBOARDS || !PLAYERS_TOP) return
+function buildPageList(totalPages, currentPage) {
+  if (totalPages <= 7) {
+    return Array.from({ length: totalPages }, (_, i) => i + 1)
+  }
 
-  CURRENT_TAB = tabName
+  const pages = new Set([1, totalPages, currentPage, currentPage - 1, currentPage + 1])
 
-  const tab = LEADERBOARDS.tabs[tabName]
+  if (currentPage <= 3) {
+    pages.add(2)
+    pages.add(3)
+    pages.add(4)
+  }
+
+  if (currentPage >= totalPages - 2) {
+    pages.add(totalPages - 1)
+    pages.add(totalPages - 2)
+    pages.add(totalPages - 3)
+  }
+
+  const sorted = [...pages]
+    .filter(p => p >= 1 && p <= totalPages)
+    .sort((a, b) => a - b)
+
+  const out = []
+  for (let i = 0; i < sorted.length; i++) {
+    const p = sorted[i]
+    const prev = sorted[i - 1]
+
+    if (i > 0 && p - prev > 1) out.push("...")
+    out.push(p)
+  }
+
+  return out
+}
+
+function goToPage(page) {
+  const totalPages = pageCount(getCurrentRows().length)
+  const nextPage = Math.max(1, Math.min(totalPages, page))
+
+  if (nextPage === CURRENT_PAGE) return
+
+  CURRENT_PAGE = nextPage
+  renderLeaderboard(CURRENT_TAB)
+  window.scrollTo({ top: 0, behavior: "instant" })
+}
+
+function renderPager(totalRows) {
+  const box = document.getElementById("leaderboardPager")
+  if (!box) return
+
+  const totalPages = pageCount(totalRows)
+
+  if (totalRows <= PAGE_SIZE) {
+    box.innerHTML = ""
+    return
+  }
+
+  const items = buildPageList(totalPages, CURRENT_PAGE)
+
+  box.innerHTML = `
+    <div class="leaderboard-pager-shell">
+      <button
+        type="button"
+        class="leaderboard-page-btn leaderboard-page-arrow"
+        id="pagerPrev"
+        ${CURRENT_PAGE <= 1 ? "disabled" : ""}
+        aria-label="Previous page"
+      >
+        ‹
+      </button>
+
+      ${items.map(item => {
+        if (item === "...") {
+          return `<span class="leaderboard-page-ellipsis">...</span>`
+        }
+
+        const active = item === CURRENT_PAGE ? " is-active" : ""
+
+        return `
+          <button
+            type="button"
+            class="leaderboard-page-btn${active}"
+            data-page="${item}"
+            aria-label="Page ${item}"
+            ${item === CURRENT_PAGE ? 'aria-current="page"' : ""}
+          >
+            ${item}
+          </button>
+        `
+      }).join("")}
+
+      <button
+        type="button"
+        class="leaderboard-page-btn leaderboard-page-arrow"
+        id="pagerNext"
+        ${CURRENT_PAGE >= totalPages ? "disabled" : ""}
+        aria-label="Next page"
+      >
+        ›
+      </button>
+    </div>
+  `
+
+  const prev = document.getElementById("pagerPrev")
+  const next = document.getElementById("pagerNext")
+
+  if (prev) prev.onclick = () => goToPage(CURRENT_PAGE - 1)
+  if (next) next.onclick = () => goToPage(CURRENT_PAGE + 1)
+
+  box.querySelectorAll("[data-page]").forEach(btn => {
+    btn.onclick = () => {
+      const page = Number(btn.getAttribute("data-page"))
+      if (Number.isFinite(page)) goToPage(page)
+    }
+  })
+}
+
+
+/* =========================================
+   Leaderboard rows
+========================================= */
+
+function getCurrentRows() {
+  if (!LEADERBOARDS || !PLAYERS_TOP) return []
+
+  const tab = LEADERBOARDS.tabs[CURRENT_TAB]
   const ids = tab.top
   const leagues = tab.leagues
-
-  const tbody = document.getElementById("leaderboardBody")
-  const thead = document.getElementById("leaderboardHead")
-
-  if (!tbody || !thead) return
-
-  thead.innerHTML = `
-    <tr>
-      <th data-sort="rank">Rank${sortIndicator("rank")}</th>
-      <th data-sort="name">Player${sortIndicator("name")}</th>
-      <th data-sort="total">Total${sortIndicator("total")}</th>
-      ${leagues.map(c => `<th data-sort="${c}">${c}${sortIndicator(c)}</th>`).join("")}
-    </tr>
-  `
 
   const rows = []
 
@@ -165,10 +282,66 @@ function renderLeaderboard(tabName) {
   }
 
   sortRows(rows)
+  return rows
+}
+
+function renderLeagueHeaderCell(code) {
+  const icon = LEAGUE_ICONS[code]
+
+  return `
+    <th data-sort="${code}">
+      <div class="leaderboard-head-league">
+        <span class="leaderboard-head-side leaderboard-head-side-left">
+          ${icon ? `<img class="league-icon leaderboard-head-icon" src="${icon}" alt="${code} icon">` : ""}
+        </span>
+        <span class="leaderboard-head-code">${code}</span>
+        <span class="leaderboard-head-side leaderboard-head-side-right sort-indicator">${sortIndicator(code)}</span>
+      </div>
+    </th>
+  `
+}
+
+
+/* =========================================
+   Leaderboard rendering
+========================================= */
+
+function renderLeaderboard(tabName) {
+  if (!LEADERBOARDS || !PLAYERS_TOP) return
+
+  CURRENT_TAB = tabName
+
+  const tab = LEADERBOARDS.tabs[tabName]
+  const leagues = tab.leagues
+
+  const tbody = document.getElementById("leaderboardBody")
+  const thead = document.getElementById("leaderboardHead")
+
+  if (!tbody || !thead) return
+
+  thead.innerHTML = `
+    <tr>
+      <th data-sort="rank">Rank${sortIndicator("rank")}</th>
+      <th data-sort="name">Player${sortIndicator("name")}</th>
+      <th data-sort="total">Total${sortIndicator("total")}</th>
+      ${leagues.map(renderLeagueHeaderCell).join("")}
+    </tr>
+  `
+
+  const rows = getCurrentRows()
+  const totalRows = rows.length
+  const totalPages = pageCount(totalRows)
+
+  if (CURRENT_PAGE > totalPages) CURRENT_PAGE = totalPages
+  if (CURRENT_PAGE < 1) CURRENT_PAGE = 1
+
+  const startIdx = (CURRENT_PAGE - 1) * PAGE_SIZE
+  const endIdx = startIdx + PAGE_SIZE
+  const pageRows = rows.slice(startIdx, endIdx)
 
   const html = []
 
-  for (const r of rows) {
+  for (const r of pageRows) {
     const p = r.player
 
     const cols = leagues.map(code => {
@@ -201,6 +374,7 @@ function renderLeaderboard(tabName) {
   }
 
   tbody.innerHTML = html.join("")
+  renderPager(totalRows)
 
   thead.querySelectorAll("th[data-sort]").forEach(th => {
     th.style.cursor = "pointer"
@@ -215,18 +389,15 @@ function renderLeaderboard(tabName) {
         SORT_DIR = col === "name" ? "asc" : "desc"
       }
 
+      CURRENT_PAGE = 1
       renderLeaderboard(CURRENT_TAB)
     }
   })
 }
 
-
 function syncTabUI(tabName) {
   document.querySelectorAll("[data-tab]").forEach(btn => {
-    btn.classList.toggle(
-      "active",
-      btn.getAttribute("data-tab") === tabName
-    )
+    btn.classList.toggle("active", btn.getAttribute("data-tab") === tabName)
   })
 }
 
@@ -236,8 +407,7 @@ function syncTabUI(tabName) {
 ========================================= */
 
 async function loadIndexBucket(bucket) {
-  if (INDEX_CACHE.has(bucket))
-    return INDEX_CACHE.get(bucket)
+  if (INDEX_CACHE.has(bucket)) return INDEX_CACHE.get(bucket)
 
   const res = await fetch(`/data/index/${bucket}.json`)
 
@@ -247,9 +417,7 @@ async function loadIndexBucket(bucket) {
   }
 
   const data = await res.json()
-
   INDEX_CACHE.set(bucket, data)
-
   return data
 }
 
@@ -259,24 +427,13 @@ row format:
 */
 
 function scoreRow(row, qAlnum) {
-  const nameAlnum = String(row[1] || "")
-    .toLowerCase()
-    .replace(/[^a-z0-9]/g, "")
-
-  const keyAlnum = String(row[2] || "")
-    .toLowerCase()
-    .replace(/[^a-z0-9]/g, "")
+  const nameAlnum = String(row[1] || "").toLowerCase().replace(/[^a-z0-9]/g, "")
+  const keyAlnum = String(row[2] || "").toLowerCase().replace(/[^a-z0-9]/g, "")
 
   if (!qAlnum) return -Infinity
-
-  if (keyAlnum === qAlnum || nameAlnum === qAlnum)
-    return 1000
-
-  if (keyAlnum.startsWith(qAlnum) || nameAlnum.startsWith(qAlnum))
-    return 800
-
-  if (keyAlnum.includes(qAlnum) || nameAlnum.includes(qAlnum))
-    return 400
+  if (keyAlnum === qAlnum || nameAlnum === qAlnum) return 1000
+  if (keyAlnum.startsWith(qAlnum) || nameAlnum.startsWith(qAlnum)) return 800
+  if (keyAlnum.includes(qAlnum) || nameAlnum.includes(qAlnum)) return 400
 
   return -Infinity
 }
@@ -291,9 +448,7 @@ function renderSearchResults(results, q) {
   }
 
   if (!results.length) {
-    box.innerHTML = `
-      <div class="result empty">No matches</div>
-    `
+    box.innerHTML = `<div class="result empty">No matches</div>`
     return
   }
 
@@ -306,17 +461,13 @@ function renderSearchResults(results, q) {
     const combined = row[5]
 
     return `
-      <a class="result"
-         href="/player.html?id=${encodeURIComponent(id)}&key=${encodeURIComponent(key)}">
-
+      <a class="result" href="/player.html?id=${encodeURIComponent(id)}&key=${encodeURIComponent(key)}">
         <div class="name">${name}</div>
-
         <div class="meta">
           <span>OSRS: ${fmt(osrs)}</span>
           <span>RS3: ${fmt(rs3)}</span>
           <span>Total: ${fmt(combined)}</span>
         </div>
-
       </a>
     `
   }).join("")
@@ -346,8 +497,7 @@ const onSearchInput = debounce(async () => {
   const q = norm(raw)
   const qAlnum = q.replace(/[^a-z0-9]/g, "")
 
-  if (clearBtn)
-    clearBtn.style.visibility = q ? "visible" : "hidden"
+  if (clearBtn) clearBtn.style.visibility = q ? "visible" : "hidden"
 
   if (!qAlnum) {
     renderSearchResults([], "")
@@ -361,9 +511,7 @@ const onSearchInput = debounce(async () => {
 
   for (const row of bucketRows) {
     const s = scoreRow(row, qAlnum)
-
-    if (s > -Infinity)
-      scored.push({ row, s, total: row[5] || 0 })
+    if (s > -Infinity) scored.push({ row, s, total: row[5] || 0 })
   }
 
   scored.sort((a, b) =>
@@ -380,8 +528,7 @@ function wireSearchUI() {
   const input = document.getElementById("search")
   const clearBtn = document.getElementById("clear")
 
-  if (input)
-    input.addEventListener("input", onSearchInput)
+  if (input) input.addEventListener("input", onSearchInput)
 
   if (clearBtn) {
     clearBtn.style.visibility = "hidden"
@@ -407,6 +554,7 @@ function wireTabs() {
     btn.addEventListener("click", () => {
       const tab = btn.getAttribute("data-tab")
       if (!tab) return
+      CURRENT_PAGE = 1
       setActiveTab(tab)
     })
   })
@@ -430,7 +578,6 @@ async function boot() {
   wireSearchUI()
 
   const tab = getActiveTab()
-
   syncTabUI(tab)
   renderLeaderboard(tab)
 }

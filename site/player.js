@@ -60,24 +60,27 @@ function trophyClass(trophy) {
   return ""
 }
 
+function hasPerfectRs3(player) {
+  if (player.perfect_rs3) return true
+
+  const cata = player.leagues && player.leagues.CATA
+  const trophy = String((cata && cata[2]) || "").toLowerCase()
+
+  return trophy === "dragon" || trophy === "true dragon" || trophy === "top 100"
+}
+
 function getPerfectDragonLabel(player) {
   if (player.perfect_combined) return "Perfect Combined Dragon"
   if (player.perfect_osrs) return "Perfect OSRS Dragon"
-  if (player.perfect_rs3) return "Perfect RS3 Dragon"
+  if (hasPerfectRs3(player)) return "Perfect RS3 Dragon"
   return ""
 }
 
 function getPerfectDragonClass(player) {
   if (player.perfect_combined) return "perfect-combined"
   if (player.perfect_osrs) return "perfect-osrs"
-  if (player.perfect_rs3) return "perfect-rs3"
+  if (hasPerfectRs3(player)) return "perfect-rs3"
   return ""
-}
-
-function renderSectionTitle(title, badgeText, badgeClass) {
-  return badgeText
-    ? `${title} <span class="perfect-dragon-badge ${badgeClass}">${badgeText}</span>`
-    : title
 }
 
 function renderSummary(player) {
@@ -102,6 +105,85 @@ function renderSummary(player) {
       <div class="statvalue">${fmt(player.combined_total)}</div>
       ${player.combined_rank ? `<div class="statrank">Rank ${fmt(player.combined_rank)}</div>` : ""}
     </div>
+  `
+}
+
+function renderPerfectAchievement(label, meta, badgeClass) {
+  return `
+    <div class="achievement-card achievement-card-perfect">
+      <div class="achievement-badge-row">
+        <span class="perfect-dragon-badge profile-perfect-badge ${badgeClass}">${label}</span>
+      </div>
+      <div class="achievement-meta">
+        <span class="achievement-meta-pill">${meta}</span>
+      </div>
+    </div>
+  `
+}
+
+function renderFirstAchievement(row) {
+  const leagueName = LEAGUE_NAMES[row.league] || row.league
+  const leagueIcon = LEAGUE_ICONS[row.league] || ""
+  const dayText = row.day ? `Day ${fmt(row.day)}` : ""
+
+  return `
+    <div class="achievement-card achievement-card-first">
+      <div class="achievement-badge-row">
+        <span class="trophy-badge trophy-first">First ${row.task || ""}</span>
+      </div>
+
+      <div class="achievement-meta">
+        <span class="achievement-meta-pill achievement-league-pill">
+          ${leagueIcon ? `<img class="achievement-meta-icon" src="${leagueIcon}" alt="${leagueName} icon">` : ""}
+          <span>${leagueName}</span>
+        </span>
+        ${dayText ? `<span class="achievement-meta-pill">${dayText}</span>` : ""}
+      </div>
+    </div>
+  `
+}
+
+function renderAchievements(player) {
+  const panel = document.getElementById("achievementsPanel")
+  const list = document.getElementById("achievementsList")
+  if (!panel || !list) return
+
+  const perfectCards = []
+  const firstCards = []
+
+  if (player.perfect_combined) {
+    perfectCards.push(
+      renderPerfectAchievement("Perfect Combined Dragon", "All Leagues", "perfect-combined")
+    )
+  }
+
+  if (player.perfect_osrs) {
+    perfectCards.push(
+      renderPerfectAchievement("Perfect OSRS Dragon", "All OSRS Leagues", "perfect-osrs")
+    )
+  }
+
+  if (hasPerfectRs3(player)) {
+    perfectCards.push(
+      renderPerfectAchievement("Perfect RS3 Dragon", "All RS3 Leagues", "perfect-rs3")
+    )
+  }
+
+  const firsts = Array.isArray(player.firsts) ? player.firsts : []
+  for (const row of firsts) {
+    firstCards.push(renderFirstAchievement(row))
+  }
+
+  if (!perfectCards.length && !firstCards.length) {
+    panel.style.display = "none"
+    list.innerHTML = ""
+    return
+  }
+
+  panel.style.display = ""
+  list.innerHTML = `
+    ${perfectCards.length ? `<div class="achievement-group achievement-group-perfect">${perfectCards.join("")}</div>` : ""}
+    ${firstCards.length ? `<div class="achievement-group achievement-group-first">${firstCards.join("")}</div>` : ""}
   `
 }
 
@@ -144,21 +226,8 @@ function renderLeagues(player) {
   osrsBody.innerHTML = buildLeagueRows(player, osrsOrder)
   rs3Body.innerHTML = buildLeagueRows(player, rs3Order)
 
-  if (osrsTitle) {
-    osrsTitle.innerHTML = renderSectionTitle(
-      "OSRS Leagues",
-      player.perfect_osrs ? "Perfect OSRS Dragon" : "",
-      "perfect-osrs"
-    )
-  }
-
-  if (rs3Title) {
-    rs3Title.innerHTML = renderSectionTitle(
-      "RS3 Leagues",
-      player.perfect_rs3 ? "Perfect RS3 Dragon" : "",
-      "perfect-rs3"
-    )
-  }
+  if (osrsTitle) osrsTitle.textContent = "OSRS Leagues"
+  if (rs3Title) rs3Title.textContent = "RS3 Leagues"
 }
 
 function showError(message) {
@@ -354,18 +423,15 @@ async function loadPlayer() {
   const nameEl = document.getElementById("playerName")
   const subtitleEl = document.getElementById("playerSubtitle")
 
-  const bestPerfectLabel = getPerfectDragonLabel(player)
-  const bestPerfectClass = getPerfectDragonClass(player)
 
   if (nameEl) {
-    nameEl.innerHTML = bestPerfectLabel
-      ? `${player.name} <span class="perfect-dragon-badge profile-perfect-badge ${bestPerfectClass}">${bestPerfectLabel}</span>`
-      : player.name
-  }
+  nameEl.textContent = player.name
+}
 
   if (subtitleEl) subtitleEl.textContent = `Profile for ${player.name}`
 
   renderSummary(player)
+  renderAchievements(player)
   renderLeagues(player)
 }
 
