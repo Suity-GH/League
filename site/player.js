@@ -4,7 +4,8 @@ const LEAGUE_NAMES = {
   SRL: "Shattered Relics",
   TBLR: "Trailblazer Reloaded",
   REL: "Raging Echoes",
-  CATA: "Catalyst"
+  CATA: "Catalyst",
+  DPL: "Demonic Pacts",
 }
 
 const LEAGUE_ICONS = {
@@ -13,7 +14,8 @@ const LEAGUE_ICONS = {
   SRL: "/icons/srl.png",
   TBLR: "/icons/tblr.png",
   REL: "/icons/rel.png",
-  CATA: "/icons/cata.png"
+  CATA: "/icons/cata.png",
+  DPL: "/icons/dpl.png",
 }
 
 function norm(s) {
@@ -220,7 +222,7 @@ function renderLeagues(player) {
 
   if (!osrsBody || !rs3Body) return
 
-  const osrsOrder = ["TL", "TBL", "SRL", "TBLR", "REL"]
+  const osrsOrder = ["TL", "TBL", "SRL", "TBLR", "REL", "DPL"]
   const rs3Order = ["CATA"]
 
   osrsBody.innerHTML = buildLeagueRows(player, osrsOrder)

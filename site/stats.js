@@ -4,7 +4,8 @@ const LEAGUE_NAMES = {
   SRL: "Shattered Relics",
   TBLR: "Trailblazer Reloaded",
   REL: "Raging Echoes",
-  CATA: "Cataclysm"
+  CATA: "Catalyst",
+  DPL: "Demonic Pacts",
 }
 
 const LEAGUE_ICONS = {
@@ -13,13 +14,14 @@ const LEAGUE_ICONS = {
   SRL: "/icons/srl.png",
   TBLR: "/icons/tblr.png",
   REL: "/icons/rel.png",
-  CATA: "/icons/cata.png"
+  CATA: "/icons/cata.png",
+  DPL: "/icons/dpl.png",
 }
 
-const OSRS_ORDER = ["TL", "TBL", "SRL", "TBLR", "REL"]
+const OSRS_ORDER = ["TL", "TBL", "SRL", "TBLR", "REL", "DPL"]
 const RS3_ORDER = ["CATA"]
 
-const TASK_OSRS = ["SRL", "TBLR", "REL"]
+const TASK_OSRS = ["SRL", "TBLR", "REL", "DPL"]
 const TASK_RS3 = ["CATA"]
 
 let STATS = null

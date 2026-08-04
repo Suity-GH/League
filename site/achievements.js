@@ -4,7 +4,8 @@ const LEAGUE_NAMES = {
   SRL: "Shattered Relics",
   TBLR: "Trailblazer Reloaded",
   REL: "Raging Echoes",
-  CATA: "Catalyst"
+  CATA: "Catalyst",
+  DPL: "Demonic Pacts",
 }
 
 const LEAGUE_ICONS = {
@@ -13,7 +14,8 @@ const LEAGUE_ICONS = {
   SRL: "/icons/srl.png",
   TBLR: "/icons/tblr.png",
   REL: "/icons/rel.png",
-  CATA: "/icons/cata.png"
+  CATA: "/icons/cata.png",
+  DPL: "/icons/dpl.png",
 }
 
 function fmt(n) {
@@ -158,7 +160,7 @@ function renderFirstLeagueSection(code, rows) {
 function renderFirsts(data) {
   const wrap = document.getElementById("firstsByLeague")
   const firsts = data.firsts || {}
-  const order = ["TL", "TBL", "SRL", "TBLR", "REL"]
+  const order = ["TL", "TBL", "SRL", "TBLR", "REL", "DPL"]
 
   wrap.innerHTML = order
     .filter(code => Array.isArray(firsts[code]) && firsts[code].length)

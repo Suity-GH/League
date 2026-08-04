@@ -20,7 +20,8 @@ const LEAGUE_ICONS = {
   SRL: "/icons/srl.png",
   TBLR: "/icons/tblr.png",
   REL: "/icons/rel.png",
-  CATA: "/icons/cata.png"
+  CATA: "/icons/cata.png",
+  DPL: "/icons/dpl.png",
 }
 
 
