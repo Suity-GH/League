@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Requests | League Archive</title>
+  <meta name="description" content="Request a name change, link an alt account, correct a link or send proof of a Perfect Dragon.">
+  <link rel="stylesheet" href="/theme.css">
+</head>
+<body>
+  <nav class="topnav"></nav>
+
+  <div class="banner"></div>
+
+  <main class="page">
+    <header class="page-head">
+      <h1 class="player-name">Requests</h1>
+      <p class="note">Changed your name, played on more than one account, or spotted something wrong? Send in a request and it will be reviewed before the site is next updated.</p>
+    </header>
+
+    <form class="req-form" id="form" novalidate>
+      <div class="select req-type" id="types"></div>
+      <p class="req-intro" id="intro"></p>
+      <div id="fields"></div>
+      <!-- left empty by people; filled in by spam bots -->
+      <input class="req-trap" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="req-actions">
+        <button type="submit" class="req-submit">Send request</button>
+        <span class="req-status" id="status" role="status"></span>
+      </div>
+    </form>
+
+    <div class="req-done hidden" id="done">
+      <h2>Request sent</h2>
+      <p>Thanks. It will be checked and, if approved, appear the next time the site is updated.</p>
+      <button type="button" class="tab" id="again">Send another</button>
+    </div>
+  </main>
+
+  <footer class="site-footer">Powered by SuityBot</footer>
+
+  <script src="/common.js"></script>
+  <script src="/requests.js"></script>
+  <script src="/nav-search.js"></script>
+  <script src="/patrons.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Patreon | League Archive</title>
+  <meta name="description" content="Preview every Patreon dye for your League Archive profile.">
+  <link rel="stylesheet" href="/theme.css">
+</head>
+<body>
+  <nav class="topnav"></nav>
+
+  <div class="banner"></div>
+
+  <main class="page">
+    <header class="page-head dye-intro">
+      <h1 class="player-name">Patreon</h1>
+      <p class="note">Supporting the project on Patreon helps keep SuityBot and this site running, and allows for new projects in the future. As a thank you, patrons get their player profile dyed, and their name is displayed in their dyed variant wherever it appears on the site.</p>
+      <p class="note">Pick a dye below to preview it.</p>
+      <div class="dye-picker" id="dyePicker"></div>
+      <a class="patreon-cta" href="https://www.patreon.com/suity/membership" target="_blank" rel="noopener">Become a patron</a>
+    </header>
+
+    <header class="profile-head">
+      <img class="avatar" src="/img/logo_200.webp" alt="" onerror="this.remove()">
+      <div class="player-name">Your Name</div>
+    </header>
+
+    <div id="profile">
+      <div id="dyeMock"></div>
+    </div>
+
+    <div id="dyeElsewhere"></div>
+  </main>
+
+  <footer class="site-footer">Powered by SuityBot</footer>
+
+  <script src="/common.js"></script>
+  <script src="/patreon.js"></script>
+  <script src="/nav-search.js"></script>
+  <script src="/patrons.js"></script>
+</body>
+</html>

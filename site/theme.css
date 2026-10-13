@@ -1,0 +1,2062 @@
+/* =========================================================
+   League Archive — navy & gold theme
+   Used by the redesigned pages (player.html first). Older pages
+   keep using style.css until they are redesigned.
+   ========================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@400;500;600;700&display=swap");
+
+:root{
+  --nav:#0a1b2d;
+  --bg:#06111c;
+  --panel:#0d2136;
+  --panel-2:#10283f;
+  --row:#0b1c2e;
+  --row-alt:#0f2438;
+  --row-hover:#16334f;
+
+  --gold:#c9a45c;
+  --gold-light:#f1d08a;
+  --gold-line:rgba(201,164,92,.45);
+  --gold-soft:rgba(201,164,92,.18);
+
+  --text:#f3f5f8;
+  --muted:#a8b7c7;
+
+  --display:"Cinzel", "Trajan Pro", Georgia, serif;
+  --body:"Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+  --page-width:1200px;
+
+  /* Your own banner image, e.g. url("/img/banner.jpg") */
+  --banner-image:none;
+}
+
+*{box-sizing:border-box}
+
+html{scrollbar-width:thin;scrollbar-color:#8d6a2e var(--bg)}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:var(--body);
+  font-size:15px;
+  color:var(--text);
+  background:var(--bg);
+}
+
+a{color:inherit}
+img{display:block}
+button,input,select{font:inherit}
+.hidden{display:none !important}
+
+/* ---------------------------------------------------------
+   Top bar
+   --------------------------------------------------------- */
+
+.topnav{
+  position:sticky;
+  top:0;
+  z-index:50;
+  height:66px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:0 28px;
+  background:var(--nav);
+  border-bottom:2px solid var(--gold);
+  box-shadow:0 4px 18px rgba(0,0,0,.45);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  text-decoration:none;
+  white-space:nowrap;
+}
+
+/* Logo slot: put your GIF at /img/logo.gif (a plain circle shows until then) */
+.brand-logo{position:relative;width:50px;height:50px;flex:0 0 50px;border-radius:0;overflow:visible;border:0;background:none;}
+
+.brand-logo img{width:100%;height:100%;object-fit:contain;}
+
+.brand-title{
+  font-family:var(--display);
+  font-weight:800;
+  font-size:22px;
+  letter-spacing:.06em;
+  color:var(--text);
+}
+
+.topnav-links{
+  display:flex;
+  align-items:center;
+  gap:28px;
+}
+
+.topnav-links a{
+  font-weight:700;
+  font-size:15px;
+  text-decoration:none;
+  color:var(--text);
+  opacity:.9;
+  transition:color .15s ease;
+}
+
+.topnav-links a:hover,
+.topnav-links a.is-active{color:var(--gold-light);opacity:1}
+
+/* ---------------------------------------------------------
+   Banner + panel
+   --------------------------------------------------------- */
+
+.banner{
+  height:200px;
+  border-bottom:1px solid #8d6a2e;
+  background:
+    var(--banner-image) center / cover no-repeat,
+    radial-gradient(420px 200px at 50% 20%, rgba(90,200,120,.30), transparent 70%),
+    radial-gradient(700px 300px at 15% 30%, rgba(40,110,60,.45), transparent 70%),
+    radial-gradient(700px 300px at 85% 30%, rgba(150,110,30,.35), transparent 70%),
+    linear-gradient(180deg, #0c3a3f 0%, #0a2a33 60%, #071a26 100%);
+}
+
+.page{
+  position:relative;
+  z-index:2;
+  max-width:var(--page-width);
+  margin:-120px auto 0;
+  padding:36px 64px 48px;
+  background:var(--panel);
+  border-radius:10px 10px 0 0;
+  box-shadow:0 20px 50px rgba(0,0,0,.55);
+}
+
+.site-footer{
+  max-width:var(--page-width);
+  margin:0 auto 40px;
+  padding:18px;
+  text-align:center;
+  font-size:13px;
+  color:var(--muted);
+  background:var(--panel);
+  border-top:1px solid var(--gold-line);
+  border-radius:0 0 10px 10px;
+}
+
+/* ---------------------------------------------------------
+   Profile header
+   --------------------------------------------------------- */
+
+.profile-head{display:flex;flex-direction:column;align-items:center;gap:18px;margin-bottom:40px;text-align:center;}
+
+/* Avatar slot: a circle for now */
+.avatar{
+  width:96px;
+  height:96px;
+  border-radius:50%;
+  border:3px solid var(--gold);
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255,255,255,.18), transparent 45%),
+    radial-gradient(circle at 50% 60%, #2a4a66, #0f2233 70%);
+  box-shadow:0 0 0 4px rgba(201,164,92,.15), 0 10px 26px rgba(0,0,0,.5);
+}
+
+.player-name{
+  margin:0;
+  padding-bottom:6px;
+  font-family:var(--display);
+  font-weight:700;
+  font-size:clamp(30px, 5vw, 50px);
+  line-height:1.1;
+  letter-spacing:.02em;
+  text-transform:uppercase;
+  border-bottom:2px solid var(--gold);
+  word-break:break-word;
+}
+
+/* ---------------------------------------------------------
+   Search
+   --------------------------------------------------------- */
+
+.search{
+  position:relative;
+  display:flex;
+  width:min(100%, 300px);
+  height:58px;
+  margin-bottom:28px;
+  border:2px solid var(--gold);
+  border-radius:8px;
+  background:#0a1b2c;
+}
+
+.search input{
+  flex:1;
+  min-width:0;
+  padding:0 16px;
+  border:0;
+  background:none;
+  color:var(--text);
+  outline:none;
+}
+
+.search input::placeholder{color:#c6d0da}
+
+.search button{
+  width:52px;
+  display:grid;
+  place-items:center;
+  border:0;
+  border-left:2px solid var(--gold);
+  border-radius:0 5px 5px 0;
+  cursor:pointer;
+  color:#1d1509;
+  background:linear-gradient(180deg, #efcf8c, #c09250);
+}
+
+.search button svg{width:22px;height:22px}
+.search:focus-within{box-shadow:0 0 0 3px var(--gold-soft)}
+
+.search-results{
+  position:absolute;
+  top:calc(100% + 6px);
+  left:-2px;
+  z-index:40;
+  width:max(100% + 4px, 340px);
+  max-height:420px;
+  overflow:auto;
+  display:none;
+  background:var(--panel-2);
+  border:2px solid var(--gold);
+  border-radius:8px;
+  box-shadow:0 16px 40px rgba(0,0,0,.6);
+}
+
+.search-results.is-open{display:block}
+
+.search-result{
+  display:block;
+  padding:10px 14px;
+  text-decoration:none;
+  border-bottom:1px solid rgba(201,164,92,.18);
+}
+
+.search-result:last-child{border-bottom:0}
+.search-result:hover,
+.search-result.is-focus{background:var(--row-hover)}
+.search-result .name{font-weight:700}
+
+.search-result .meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:3px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.search-result.empty{color:var(--muted)}
+
+/* ---------------------------------------------------------
+   Totals
+   --------------------------------------------------------- */
+
+.totals{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:16px;
+  margin-bottom:40px;
+}
+
+.total-card{padding:18px 20px;text-align:center;background:var(--row);border:2px solid var(--gold);border-radius:8px;}
+
+.total-label{
+  font-family:var(--display);
+  font-weight:700;
+  font-size:14px;
+  letter-spacing:.06em;
+  color:var(--gold-light);
+}
+
+.total-value{
+  margin-top:8px;
+  font-size:30px;
+  font-weight:600;
+  font-variant-numeric:tabular-nums;
+}
+
+.total-rank{
+  margin-top:4px;
+  font-size:13px;
+  color:var(--muted);
+}
+
+/* ---------------------------------------------------------
+   Sections + official-style tables
+   --------------------------------------------------------- */
+
+.section{margin-bottom:44px}
+
+.section-head{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:14px;
+}
+
+.section-title{
+  margin:0;
+  font-family:var(--display);
+  font-weight:700;
+  font-size:19px;
+  letter-spacing:.04em;
+  font-variant:small-caps;
+}
+
+.sub-title{
+  margin:26px 0 8px;
+  font-family:var(--display);
+  font-weight:700;
+  font-size:15px;
+  letter-spacing:.05em;
+  color:var(--muted);
+}
+
+.note{color:var(--muted);font-size:14px;line-height:1.5;margin:0}
+
+.table-wrap{overflow-x:auto}
+
+.hs-table{
+  width:100%;
+  min-width:520px;
+  border-collapse:collapse;
+  table-layout:fixed;   /* keeps columns lined up from one table to the next */
+}
+
+.hs-table th{
+  height:40px;
+  padding:0 14px;
+  font-family:var(--display);
+  font-weight:700;
+  font-size:13px;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--gold);
+  text-align:center;
+  white-space:nowrap;
+  border-bottom:1px solid var(--gold-line);
+}
+
+.hs-table td{
+  height:52px;
+  padding:6px 14px;
+  text-align:center;
+  white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+  border-bottom:1px solid rgba(201,164,92,.16);
+}
+
+.hs-table tbody tr{background:var(--row)}
+.hs-table tbody tr:nth-child(even){background:var(--row-alt)}
+.hs-table tbody tr:hover{background:var(--row-hover)}
+
+.hs-table th:first-child,
+.hs-table td:first-child{text-align:left}
+
+.hs-table td:first-child{width:36%}
+
+.item{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  font-weight:700;
+  white-space:normal;
+}
+
+.item-icon{
+  width:24px;
+  height:24px;
+  object-fit:contain;
+  flex:0 0 24px;
+}
+
+.item a{text-decoration:none}
+.item a:hover{color:var(--gold-light);text-decoration:underline}
+
+.muted{color:var(--muted)}
+
+/* ---------------------------------------------------------
+   Select (native select over a styled box)
+   --------------------------------------------------------- */
+
+.select{
+  position:relative;
+  display:flex;
+  width:280px;
+  height:58px;
+  overflow:hidden;
+  border:2px solid var(--gold);
+  border-radius:8px;
+  background:#0a1b2c;
+}
+
+.select-text{
+  flex:1;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:0 16px;
+}
+
+.select-label{
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  color:#c6d0da;
+}
+
+.select-value{
+  margin-top:2px;
+  font-size:17px;
+  font-weight:600;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.select-chevron{
+  width:52px;
+  display:grid;
+  place-items:center;
+  border-left:2px solid var(--gold);
+  color:#1d1509;
+  background:linear-gradient(180deg, #efcf8c, #c09250);
+}
+
+.select-chevron svg{width:20px;height:20px}
+
+.select select{
+  position:absolute;
+  inset:0;
+  width:100%;
+  opacity:0;
+  cursor:pointer;
+}
+
+.select select option{background:#0d2136;color:var(--text)}
+.select:focus-within{box-shadow:0 0 0 3px var(--gold-soft)}
+
+/* Dropdown with headings, icons and greyed-out options */
+.select.menu-select{overflow:visible}
+
+.select-button{
+  display:flex;
+  width:100%;
+  height:100%;
+  padding:0;
+  border:0;
+  border-radius:6px;
+  overflow:hidden;
+  background:none;
+  color:inherit;
+  font:inherit;
+  text-align:left;
+  cursor:pointer;
+}
+
+.select-value{display:flex;align-items:center;gap:8px}
+.select-value span{overflow:hidden;text-overflow:ellipsis}
+.select-icon{width:20px;height:20px;object-fit:contain;flex:none}
+
+.select-menu{
+  position:absolute;
+  z-index:30;
+  top:calc(100% + 6px);
+  left:-2px;
+  right:-2px;
+  max-height:460px;
+  overflow-y:auto;
+  padding:6px;
+  border:2px solid var(--gold);
+  border-radius:8px;
+  background:#0a1b2c;
+  box-shadow:0 14px 30px rgba(0,0,0,.5);
+}
+
+.select-group{
+  padding:8px 10px 4px;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--gold-light);
+}
+
+.select-group:not(:first-child){
+  margin-top:6px;
+  border-top:1px solid var(--gold-soft);
+  padding-top:12px;
+}
+
+.select-option{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  width:100%;
+  padding:9px 10px;
+  border:0;
+  border-radius:6px;
+  background:none;
+  color:var(--text);
+  font:inherit;
+  font-size:15px;
+  font-weight:600;
+  text-align:left;
+  cursor:pointer;
+}
+
+.select-option:hover:not(:disabled),
+.select-option:focus-visible{background:var(--row-hover);outline:none}
+.select-option[aria-selected="true"]{background:var(--gold-soft);color:var(--gold-light)}
+
+.select-option:disabled{
+  color:var(--muted);
+  opacity:.4;
+  cursor:not-allowed;
+}
+
+.select-option:disabled .select-icon{filter:grayscale(1)}
+
+/* =========================================================
+   Trophy badges (carried over from the old site)
+   ========================================================= */
+
+.trophy-badge{
+  position:relative;
+  display:inline-block;
+  padding:4px 10px;
+  border-radius:999px;
+  border:1px solid transparent;
+  font-size:12px;
+  font-weight:700;
+  overflow:hidden;
+}
+
+.trophy-bronze{color:#ffe7db;background:rgba(205,127,80,.18);border-color:rgba(205,127,80,.45)}
+.trophy-iron{color:#efe9e2;background:rgba(176,155,138,.16);border-color:rgba(176,155,138,.42)}
+.trophy-steel{color:#e4eaf2;background:rgba(160,180,205,.16);border-color:rgba(160,180,205,.42)}
+.trophy-mithril{color:#dcf0ff;background:rgba(90,190,255,.15);border-color:rgba(90,190,255,.40)}
+.trophy-adamant{color:#d8fff5;background:rgba(0,220,170,.16);border-color:rgba(0,220,170,.42)}
+.trophy-rune{color:#d7e6ff;background:rgba(120,170,255,.16);border-color:rgba(120,170,255,.42)}
+.trophy-dragon{color:#ffe0e0;background:rgba(255,40,40,.20);border-color:rgba(255,40,40,.55)}
+
+.trophy-top100{
+  color:#111;
+  background:linear-gradient(135deg, #7a5a00 0%, #caa400 30%, #ffd94a 50%, #caa400 70%, #7a5a00 100%);
+  border-color:rgba(255,215,90,.65);
+  text-shadow:0 0 4px rgba(255,230,120,.35);
+}
+
+.trophy-top100::after,
+.trophy-cap::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-120%;
+  width:60%;
+  height:100%;
+  background:linear-gradient(120deg, transparent, rgba(255,255,255,.5), transparent);
+  animation:shine 3.2s infinite;
+}
+
+@keyframes shine{
+  0%{left:-120%}
+  60%,100%{left:130%}
+}
+
+.trophy-truedragon{
+  color:#fff1ea;
+  background:linear-gradient(180deg, #2a0000 0%, #5c0000 35%, #9c1200 68%, #4a0000 100%);
+  border-color:rgba(255,95,35,.60);
+  text-shadow:0 0 6px rgba(255,110,40,.35), 0 0 12px rgba(255,60,0,.18);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 0 12px rgba(255,70,20,.18);
+  isolation:isolate;
+}
+
+.trophy-truedragon::before{
+  content:"";
+  position:absolute;
+  left:-6%;
+  right:-6%;
+  bottom:-38%;
+  height:138%;
+  background:
+    radial-gradient(30% 60% at 12% 100%, rgba(255,160,60,0) 0 30%, rgba(255,160,60,.78) 50%, rgba(255,80,20,0) 70%),
+    radial-gradient(26% 52% at 32% 100%, rgba(255,210,110,0) 0 26%, rgba(255,190,80,.96) 48%, rgba(255,90,25,0) 68%),
+    radial-gradient(32% 64% at 52% 100%, rgba(255,120,30,0) 0 28%, rgba(255,110,35,.86) 48%, rgba(255,70,20,0) 70%),
+    radial-gradient(26% 50% at 72% 100%, rgba(255,220,120,0) 0 24%, rgba(255,200,95,.98) 46%, rgba(255,90,20,0) 66%),
+    radial-gradient(30% 58% at 90% 100%, rgba(255,140,40,0) 0 28%, rgba(255,120,40,.82) 48%, rgba(255,60,10,0) 68%);
+  filter:blur(1.9px);
+  transform-origin:bottom center;
+  pointer-events:none;
+  z-index:-1;
+  animation:dragonFlames 4.5s linear infinite;
+}
+
+@keyframes dragonFlames{
+  0%{transform:translateY(6%) scaleY(.92);opacity:.86}
+  18%{transform:translateY(-2%) scaleY(1.05);opacity:.95}
+  36%{transform:translateY(3%) scaleY(.97);opacity:.9}
+  52%{transform:translateY(-5%) scaleY(1.14);opacity:1}
+  70%{transform:translateY(2%) scaleY(.99);opacity:.92}
+  86%{transform:translateY(-3%) scaleY(1.08);opacity:.97}
+  100%{transform:translateY(5%) scaleY(.94);opacity:.88}
+}
+
+@keyframes twinkleA{0%,100%{opacity:0}28%{opacity:.18}44%{opacity:.62}56%{opacity:1}70%{opacity:.55}86%{opacity:.1}}
+
+.day-pill{
+  display:inline-block;
+  padding:4px 10px;
+  border-radius:999px;
+  border:1px solid rgba(140,200,160,.25);
+  background:rgba(70,120,85,.18);
+  color:#e4f7e8;
+  font-size:12px;
+  font-weight:700;
+}
+
+/* ---------------------------------------------------------
+   Mobile
+   --------------------------------------------------------- */
+
+@media (max-width:900px){
+  .page{padding:28px 20px 36px}
+}
+
+@media (max-width:640px){
+  .topnav{padding:0 14px;height:60px}
+  .brand-title{font-size:17px}
+  .topnav-links{gap:14px}
+  .topnav-links a{font-size:13px}
+  .banner{height:150px}
+  .page{margin-top:-80px;border-radius:0}
+  .site-footer{border-radius:0}
+  .totals{grid-template-columns:1fr}
+  .search,.select{width:100%}
+}
+
+@media (max-width:420px){
+  .brand-title{display:none}
+}
+
+/* =========================================================
+   Achievement badges (player profile)
+   ========================================================= */
+
+.ach-grid{
+  display:grid;
+  /* wide enough that the [league][day] pips always fit on one line */
+  grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));
+  gap:14px;
+}
+
+.ach-badge{
+  --tone:#e7c070;          /* emblem colour, set per variant below */
+  --tone-light:#fff1c8;
+  --tone-dark:#6b4a12;
+  --glow:rgba(231,192,112,.28);
+  position:relative;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  grid-template-areas:"emblem text" "meta meta";
+  align-items:center;
+  column-gap:16px;
+  row-gap:14px;
+  padding:16px 18px;
+  border:1px solid var(--gold-line);
+  border-radius:10px;
+  background:
+    radial-gradient(160px 120px at 0% 30%, var(--glow), transparent 70%),
+    linear-gradient(180deg, #11294a 0%, #0b1c2e 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 8px 22px rgba(0,0,0,.35);
+  transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+.ach-badge:hover{
+  transform:translateY(-2px);
+  border-color:var(--tone);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 12px 28px rgba(0,0,0,.45), 0 0 0 1px var(--glow);
+}
+
+/* Emblem: polished metal ring around a dark face; the shimmer sweeps over both */
+.ach-emblem{
+  grid-area:emblem;
+  position:relative;
+  flex:0 0 68px;
+  width:68px;
+  height:68px;
+  padding:5px;
+  border-radius:50%;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 30% 25%, var(--tone-light) 0%, transparent 45%),
+    conic-gradient(from 200deg, var(--tone-dark), var(--tone) 25%, var(--tone-light) 40%, var(--tone) 55%, var(--tone-dark) 75%, var(--tone) 90%, var(--tone-dark));
+  box-shadow:0 0 18px var(--glow), 0 6px 14px rgba(0,0,0,.45);
+}
+
+.ach-face{
+  width:100%;
+  height:100%;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  color:var(--tone);
+  background:
+    radial-gradient(circle at 50% 35%, rgba(255,255,255,.14), transparent 55%),
+    radial-gradient(circle, #13304f 58%, #0a1a2b 100%);
+  box-shadow:inset 0 0 0 2px var(--tone-dark), inset 0 -6px 12px rgba(0,0,0,.45);
+}
+
+.ach-face svg{
+  width:40px;
+  height:40px;
+  filter:drop-shadow(0 2px 2px rgba(0,0,0,.5));
+}
+
+/* shimmer: a bright band sweeping across the medal */
+.ach-emblem::after{
+  content:"";
+  position:absolute;
+  top:-20%;
+  left:-120%;
+  width:50%;
+  height:140%;
+  transform:rotate(20deg);
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.6), transparent);
+  animation:emblemShine 4.5s ease-in-out infinite;
+  pointer-events:none;
+}
+
+@keyframes emblemShine{
+  0%,55%{left:-120%}
+  80%,100%{left:150%}
+}
+
+.ach-text{grid-area:text;min-width:0}
+
+.ach-eyebrow{
+  font-family:var(--display);
+  font-weight:700;
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--tone);
+}
+
+.ach-title{
+  margin-top:3px;
+  font-family:var(--display);
+  font-weight:700;
+  font-size:18px;
+  line-height:1.2;
+  color:var(--text);
+}
+
+/* [league][day] pips: fixed size, never wrap */
+.ach-meta{
+  grid-area:meta;
+  display:flex;
+  flex-wrap:nowrap;
+  gap:6px;
+  min-height:28px;
+}
+
+.ach-chip{
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  height:28px;
+  padding:0 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.06);
+  font-size:12px;
+  font-weight:700;
+  line-height:1;
+  white-space:nowrap;
+  color:#dbe3ec;
+}
+
+.ach-chip img{
+  width:18px;
+  height:18px;
+  flex:0 0 18px;
+  object-fit:contain;
+}
+
+/* Variants */
+.ach-first{--tone:#e7c070;--tone-light:#fff1c8;--tone-dark:#6b4a12;--glow:rgba(231,192,112,.26)}
+.ach-osrs{--tone:#6cc4ff;--tone-light:#e6f6ff;--tone-dark:#0f3a66;--glow:rgba(87,184,255,.28)}
+.ach-rs3{--tone:#8fb1ff;--tone-light:#eef2ff;--tone-dark:#1d2f73;--glow:rgba(116,168,255,.28)}
+.ach-combined{--tone:#9fe3ff;--tone-light:#ffffff;--tone-dark:#15507e;--glow:rgba(141,215,255,.34)}
+
+/* Top 25 finishes: green by default (bosses, activities) */
+.ach-top{--tone:#62dcae;--tone-light:#e2fff3;--tone-dark:#0f5a44;--glow:rgba(98,220,174,.24)}
+
+/* Skills take their own colour: player.js sets --tone, the rest is derived from it */
+.ach-skill{
+  --tone-light:color-mix(in srgb, var(--tone) 30%, white);
+  --tone-dark:color-mix(in srgb, var(--tone) 42%, black);
+  --glow:color-mix(in srgb, var(--tone) 26%, transparent);
+}
+
+/* Podium ranks get a gold / silver / bronze rank pip */
+.ach-podium-1{color:#2a1a02;border-color:rgba(255,220,110,.8);background:linear-gradient(135deg, #a67c12, #f3cf6e 50%, #a67c12)}
+.ach-podium-2{color:#14181d;border-color:rgba(230,236,244,.8);background:linear-gradient(135deg, #7d8894, #e6ecf3 50%, #7d8894)}
+.ach-podium-3{color:#2a1505;border-color:rgba(235,170,120,.8);background:linear-gradient(135deg, #8a5226, #e3a978 50%, #8a5226)}
+
+.ach-title a{text-decoration:none}
+.ach-title a:hover{color:var(--tone);text-decoration:underline}
+
+.ach-more{
+  display:block;
+  margin:16px auto 0;
+  padding:10px 20px;
+  border:1px solid var(--gold);
+  border-radius:6px;
+  background:#0a1b2c;
+  color:var(--gold-light);
+  font-weight:700;
+  cursor:pointer;
+  transition:background .15s ease;
+}
+
+.ach-more:hover{background:var(--row-hover)}
+
+/* Perfect badges also twinkle */
+.ach-osrs .ach-emblem::before,
+.ach-rs3 .ach-emblem::before,
+.ach-combined .ach-emblem::before{
+  content:"✦";
+  position:absolute;
+  top:10px;
+  right:13px;
+  z-index:1;
+  font-size:11px;
+  color:#fff;
+  text-shadow:0 0 6px #fff, -26px 30px 0 rgba(255,255,255,.9);
+  animation:twinkleA 2.8s infinite ease-in-out;
+}
+
+.ach-combined{border-color:rgba(159,227,255,.55)}
+
+@media (max-width:640px){
+  .ach-grid{grid-template-columns:1fr}
+  .ach-badge{column-gap:12px;padding:14px}
+  .ach-emblem{flex-basis:56px;width:56px;height:56px;padding:4px}
+  .ach-face svg{width:32px;height:32px}
+  .ach-title{font-size:16px}
+}
+
+/* =========================================================
+   Milestones page
+   ========================================================= */
+
+.page-head{margin-bottom:26px}
+.page-head .note{margin-top:8px;max-width:760px}
+
+.tabs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:30px;
+  padding-bottom:14px;
+  border-bottom:1px solid var(--gold-line);
+}
+
+.tab{
+  padding:9px 20px;
+  border:1px solid var(--gold-line);
+  border-radius:6px;
+  background:#0a1b2c;
+  color:var(--muted);
+  font-family:var(--display);
+  font-weight:700;
+  font-size:13px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+
+.tab:hover{color:var(--gold-light);border-color:var(--gold)}
+
+.tab.is-active{
+  color:#1d1509;
+  border-color:var(--gold);
+  background:linear-gradient(180deg, #efcf8c, #c09250);
+}
+
+.ms-table{table-layout:auto}
+.ms-table td{height:58px;padding:7px 12px}
+.ms-table td:first-child{width:auto}
+.ms-wide{min-width:1060px}
+.ms-wide th,.ms-wide td{padding-left:4px;padding-right:4px;font-size:14px}
+.ms-wide td:first-child,.ms-wide th:first-child{padding-left:8px}
+
+/* Trophy badges in a table heading look the same as the ones in table rows */
+.hs-table th .trophy-badge{
+  font-family:var(--body);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:normal;
+  text-transform:none;
+  vertical-align:middle;
+}
+
+.trophy-cap{
+  color:#111;
+  background:linear-gradient(135deg, #5f6874 0%, #aeb8c4 30%, #eef3f8 50%, #aeb8c4 70%, #5f6874 100%);
+  border-color:rgba(220,230,240,.7);
+  text-shadow:0 0 4px rgba(255,255,255,.35);
+}
+
+.ms-value{display:block;font-weight:600}
+.ms-sub{display:block;margin-top:1px;font-size:11px;line-height:1.25;color:var(--muted)}
+
+/* Skills: league heading over its Max level / 200m columns */
+.ms-skills th,.ms-skills td{padding-left:8px;padding-right:8px}
+.ms-skills td{white-space:normal;min-width:74px}
+.ms-skills td:first-child{white-space:nowrap}
+.ms-skills thead tr:first-child th{border-bottom:0;height:36px}
+.ms-skills .ms-subhead th{height:28px;font-size:11px;color:var(--gold);text-align:center}
+.ms-skills thead tr:first-child th[rowspan]{border-bottom:1px solid var(--gold-line)}
+.ms-skills .ms-group{border-left:1px solid var(--gold-line)}
+
+.ms-head{display:inline-flex;align-items:center;gap:6px;vertical-align:middle}
+
+.ms-tasks th{cursor:pointer;user-select:none}
+.ms-tasks td:nth-child(2){text-align:left}
+.ms-tasks th:nth-child(2){text-align:left}
+
+@media (max-width:720px){
+  .tab{padding:8px 13px;font-size:12px}
+}
+
+/* Gold frame around the milestones tables (same line as the search box and dropdown) */
+#content .table-wrap{
+  border:2px solid var(--gold);
+  border-radius:8px;
+  background:var(--row);
+}
+#content .table-wrap .hs-table tbody tr:last-child td{border-bottom:0}
+#content .table-wrap .hs-table th:first-child,
+#content .table-wrap .hs-table td:first-child{padding-left:16px}
+
+/* =========================================================
+   Achievements page
+   ========================================================= */
+
+.ach-intro{max-width:860px;margin-bottom:18px}
+
+.gold-button{
+  display:inline-block;
+  padding:10px 20px;
+  border:2px solid var(--gold);
+  border-radius:8px;
+  background:#0a1b2c;
+  color:var(--gold-light);
+  font-weight:700;
+  text-decoration:none;
+  transition:background .15s ease;
+}
+.gold-button:hover{background:var(--row-hover)}
+
+.section-title{display:flex;align-items:center;gap:10px}
+.section-icon{width:26px;height:26px;object-fit:contain}
+
+.pill-list{display:flex;flex-wrap:wrap;gap:8px}
+
+.player-pill{
+  display:inline-flex;
+  align-items:center;
+  height:28px;
+  padding:0 12px;
+  border-radius:999px;
+  border:1px solid var(--gold-line);
+  background:rgba(201,164,92,.08);
+  color:var(--text);
+  font-size:13px;
+  font-weight:700;
+  line-height:1;
+  white-space:nowrap;
+  text-decoration:none;
+  transition:background .15s ease, border-color .15s ease, color .15s ease;
+}
+a.player-pill:hover{background:var(--gold-soft);border-color:var(--gold);color:var(--gold-light)}
+
+.ach-table{table-layout:auto}
+.ach-table td{height:auto;padding:10px 14px;white-space:normal}
+.ach-table th,.ach-table td{text-align:left}
+.ach-table .col-narrow{width:1%;white-space:nowrap;text-align:center}
+.ach-table .col-task{width:42%;font-weight:700}
+.ach-table td:first-child{width:auto}
+.ach-table td.col-narrow:first-child{width:1%}
+
+.rank-pill{
+  display:inline-grid;
+  place-items:center;
+  min-width:30px;
+  height:28px;
+  padding:0 8px;
+  border-radius:999px;
+  border:1px solid var(--gold-line);
+  font-size:13px;
+  font-weight:700;
+}
+
+/* ---------------- Perfect Dragon badges with a count and bar ---------------- */
+.ach-badge.ach-stat{grid-template-areas:"emblem text" "stat stat";row-gap:16px}
+.ach-stat-body{grid-area:stat}
+.ach-stat-num{font-size:30px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
+.ach-stat-num small{margin-left:8px;font-size:14px;font-weight:500;color:var(--muted)}
+.ach-stat-bar{height:8px;margin-top:12px;border-radius:99px;background:#07131f;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+.ach-stat-bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg, var(--tone-dark), var(--tone))}
+.ach-stat-note{margin-top:7px;font-size:12px;color:var(--muted)}
+
+/* ---------------- League Firsts: picker + timeline ---------------- */
+.split{display:grid;grid-template-columns:240px minmax(0, 1fr);gap:28px;align-items:start}
+.league-picks{display:flex;flex-direction:column;gap:6px;position:sticky;top:82px}
+
+.league-pick{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 14px;
+  border:1px solid var(--gold-line);
+  border-radius:8px;
+  background:#0a1b2c;
+  color:var(--muted);
+  font-weight:700;
+  font-size:14px;
+  text-align:left;
+  cursor:pointer;
+}
+.league-pick small{margin-left:auto;font-weight:600;font-size:12px;color:var(--muted)}
+.league-pick:hover{color:var(--gold-light);border-color:var(--gold)}
+.league-pick.is-active{padding:9px 13px;border:2px solid var(--gold);color:var(--gold-light);background:var(--row-hover)}
+
+.tl{position:relative;margin-left:76px;padding-left:28px;border-left:2px solid var(--gold-line)}
+.tl-day{position:relative;margin-bottom:20px}
+.tl-day:last-child{margin-bottom:0}
+.tl-day::before{
+  content:"";
+  position:absolute;
+  left:-36px;
+  top:14px;
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  background:var(--gold);
+  box-shadow:0 0 0 4px var(--panel);
+}
+.tl-label{position:absolute;left:-112px;top:11px;width:64px;text-align:right;font-weight:700;font-size:13px;color:var(--gold-light)}
+.tl-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  min-height:44px;
+  padding:8px 14px;
+  margin-bottom:6px;
+  background:var(--row);
+  border:1px solid rgba(201,164,92,.16);
+  border-radius:8px;
+}
+.tl-task{font-weight:700}
+.tl-item .pill-list{justify-content:flex-end}
+/* ---------------- Region Winners ---------------- */
+.region-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:18px}
+
+.region-icon{
+  display:inline-grid;
+  place-items:center;
+  width:24px;
+  height:24px;
+  flex:none;
+  border-radius:50%;
+  font-weight:800;
+  font-size:11px;
+  color:#0b1c2e;
+  background:var(--gold);
+}
+.region-icon:has(img){background:none;border-radius:0}
+.region-icon img{width:auto;height:100%;object-fit:contain;}
+.region-icons{display:inline-flex;gap:5px;vertical-align:middle;align-items:center;}
+
+.region-pick{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  height:42px;
+  padding:0 14px 0 9px;
+  border:1px solid var(--gold-line);
+  border-radius:999px;
+  background:#0a1b2c;
+  color:var(--muted);
+  font-weight:700;
+  font-size:13px;
+  cursor:pointer;
+}
+.region-pick:hover:not(:disabled){color:var(--gold-light);border-color:var(--gold)}
+.region-pick.is-active{padding:0 13px 0 8px;border:2px solid var(--gold);color:var(--gold-light);background:var(--row-hover)}
+.region-pick:disabled{opacity:.4;cursor:not-allowed}
+
+.region-reset{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  height:42px;
+  padding:0 16px;
+  border:2px solid var(--gold);
+  border-radius:999px;
+  background:linear-gradient(180deg, #efcf8c, #c09250);
+  color:#1d1509;
+  font-weight:700;
+  font-size:13px;
+  cursor:pointer;
+}
+.region-reset svg{width:13px;height:13px}
+.region-reset:disabled{border:1px solid var(--gold-line);background:#0a1b2c;color:var(--muted);opacity:.6;cursor:default}
+.region-count{margin-left:auto;font-weight:700;font-size:13px;color:var(--gold-light)}
+
+.combo-code{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.12em;color:var(--gold-light)}
+
+.region-banner{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  padding:16px 22px;
+  margin-bottom:18px;
+  border:2px solid var(--gold);
+  border-radius:10px;
+  background:linear-gradient(180deg, #11294a, #0b1c2e);
+}
+.region-banner .region-icon{width:38px;height:38px;font-size:15px}
+.region-banner-name{margin-top:2px;font-family:var(--display);font-weight:700;font-size:24px}
+.region-banner-link{color:var(--text);text-decoration:none}
+a.region-banner-link:hover{color:var(--gold-light);text-decoration:underline}
+.region-banner-rank{margin-left:auto;text-align:right}
+.region-banner-rank b{display:block;font-size:24px;font-weight:600}
+.region-banner-rank span{font-size:13px;color:var(--muted)}
+
+.region-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.region-table td{height:40px;padding:4px 12px}
+.region-table .col-pos{width:1%;white-space:nowrap;color:var(--muted);font-size:12px}
+.region-table .col-combo{white-space:nowrap}
+.region-table .col-combo .combo-code{margin-left:10px}
+.region-table .col-rank{text-align:right;font-variant-numeric:tabular-nums}
+.region-table tr.is-dim{opacity:.28}
+.region-table tbody tr.is-hit{background:var(--row-hover);box-shadow:inset 3px 0 0 var(--gold)}
+
+@media (max-width:900px){
+  .split{grid-template-columns:1fr}
+  .league-picks{position:static;flex-direction:row;flex-wrap:wrap}
+  .league-pick small{margin-left:4px}
+  .region-cols{grid-template-columns:1fr}
+}
+
+@media (max-width:640px){
+  .tl{margin-left:0;padding-left:20px}
+  .tl-day::before{left:-28px}
+  .tl-label{position:static;width:auto;text-align:left;margin-bottom:6px}
+  .tl-item{flex-direction:column;align-items:flex-start}
+  .tl-item .pill-list{justify-content:flex-start}
+  .region-banner{flex-wrap:wrap}
+  .region-banner-rank{margin-left:0;text-align:left}
+  .region-count{margin-left:0;width:100%}
+}
+
+.ach-caption{margin:-4px 0 12px}
+.ach-caption b{color:var(--text)}
+
+.tl-ranked{justify-content:flex-start}
+.tl-ranked .pill-list{justify-content:flex-start}
+.tl-ranked .tl-task{margin-left:auto;font-weight:600;color:var(--muted)}
+
+/* Framed tables never scroll up and down; the region tables fit their column, so no scrolling at all */
+#content .table-wrap{overflow-y:hidden}
+.region-cols .table-wrap{overflow:hidden}
+.region-table{min-width:0}
+.region-table th,.region-table td{padding-left:10px;padding-right:10px}
+
+/* Region icons are tall banners: size them by height and keep their own proportions */
+.region-icon:has(img){width:auto;height:28px}
+.region-pick .region-icon:has(img){height:26px}
+.region-banner .region-icon:has(img){width:auto;height:46px}
+/* RS3 region icons mix round badges and taller shields: every image gets the same fixed square and is
+   shrunk to fit inside it (object-fit: contain), so a shield is never taller than the row or button it's in */
+.region-icon.region-icon-rs3:has(img){width:24px;height:24px}
+.region-icon.region-icon-rs3 img{width:24px;height:24px;max-width:none;max-height:none;object-fit:contain;display:block}
+.region-pick .region-icon.region-icon-rs3:has(img),
+.region-pick .region-icon.region-icon-rs3 img{width:22px;height:22px}
+.region-banner .region-icon.region-icon-rs3:has(img),
+.region-banner .region-icon.region-icon-rs3 img{width:40px;height:40px}
+.region-icons:has(.region-icon-rs3){gap:6px}
+
+.region-head{margin-bottom:18px}
+
+/* Larger league heading on the region winners tab */
+.region-head .section-title{font-size:28px;color:var(--gold-light);gap:14px}
+.region-head .section-icon{width:42px;height:42px}
+
+/* Larger league heading above the timelines (League Firsts, Dragon Rushes) */
+.split .section-title{font-size:28px;color:var(--gold-light);gap:14px}
+.split .section-icon{width:42px;height:42px}
+.split .section-head{margin-bottom:18px}
+
+/* =========================================================
+   Hiscores page
+   ========================================================= */
+
+.hs-controls{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:26px}
+.hs-controls .search{margin:0 0 0 auto}
+.hs-list-select{display:none}
+
+.hs-layout{display:grid;grid-template-columns:220px minmax(0, 1fr);gap:28px;align-items:start}
+
+.hs-side{
+  position:sticky;
+  top:82px;
+  max-height:calc(100vh - 100px);
+  overflow-y:auto;
+  padding-right:6px;
+  scrollbar-width:thin;
+  scrollbar-color:#8d6a2e transparent;
+}
+.hs-side-title{
+  margin:18px 0 6px;
+  font-family:var(--body);
+  font-weight:700;
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--gold-light);
+}
+.hs-side-title:first-child{margin-top:0}
+.hs-side-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  width:100%;
+  padding:7px 12px;
+  border:0;
+  border-radius:6px;
+  background:none;
+  color:var(--muted);
+  font-weight:600;
+  font-size:14px;
+  text-align:left;
+  cursor:pointer;
+}
+.hs-side-item:hover:not(:disabled){color:var(--gold-light);background:rgba(255,255,255,.04)}
+.hs-side-item.is-active{color:var(--gold-light);background:var(--row-hover);box-shadow:inset 3px 0 0 var(--gold)}
+.hs-side-item:disabled{opacity:.3;cursor:not-allowed}
+
+.hs-title{margin-bottom:16px}
+.hs-title-league{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-family:var(--display);
+  font-weight:700;
+  font-size:15px;
+  letter-spacing:.06em;
+  color:var(--muted);
+}
+.hs-title-league img{width:24px;height:24px;object-fit:contain}
+.hs-title-list{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin:6px 0 0;
+  font-family:var(--display);
+  font-weight:700;
+  font-size:32px;
+  line-height:1.15;
+  color:var(--gold-light);
+}
+.hs-title-list img{width:44px;height:44px;object-fit:contain}
+
+.hs-main .note{margin-bottom:12px}
+
+.hs-board{table-layout:auto}
+.hs-board td{height:46px}
+.hs-board .col-rank{width:84px;text-align:left;color:var(--muted)}
+.hs-board th.col-rank{color:var(--gold)}
+.hs-board th.col-name,.hs-board td.col-name{text-align:left;font-weight:700}
+.hs-board td:first-child{width:84px}
+.hs-board td.col-name a{text-decoration:none}
+.hs-board td.col-name a:hover{color:var(--gold-light);text-decoration:underline}
+.hs-board .col-strong{font-weight:700}
+.hs-board tbody tr.is-hit{background:var(--row-hover);box-shadow:inset 3px 0 0 var(--gold)}
+.hs-board-wide th,.hs-board-wide td{padding-left:8px;padding-right:8px}
+.hs-board-wide th.col-rank,.hs-board-wide td.col-rank{padding-left:16px;width:64px}
+
+.pager{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:18px}
+.pager-btn{
+  min-width:38px;
+  height:36px;
+  padding:0 10px;
+  border:1px solid var(--gold-line);
+  border-radius:6px;
+  background:#0a1b2c;
+  color:var(--muted);
+  font-weight:700;
+  font-size:13px;
+  cursor:pointer;
+}
+.pager-btn:hover:not(:disabled):not(.is-active){color:var(--gold-light);border-color:var(--gold)}
+.pager-btn.is-active{border-color:var(--gold);background:linear-gradient(180deg, #efcf8c, #c09250);color:#1d1509}
+.pager-btn:disabled{opacity:.4;cursor:default}
+.pager-gap{display:grid;place-items:center;min-width:24px;color:var(--muted)}
+
+@media (max-width:900px){
+  .hs-layout{grid-template-columns:1fr}
+  .hs-side{display:none}
+  .hs-list-select{display:flex}
+  .hs-controls .search{margin-left:0;width:100%}
+}
+
+/* Sidebar icons: a fixed slot, so names line up even where an icon is missing */
+.hs-side-icon{flex:0 0 22px;width:22px;height:22px;display:flex;place-items:center;align-items:center;justify-content:center;line-height:0;}
+.hs-side-icon img{max-width:none;max-height:none;object-fit:contain;image-rendering:auto;width:22px;height:22px;object-position:center;}
+.hs-side-item:disabled .hs-side-icon img{filter:grayscale(1)}
+
+/* Every sidebar and title icon fills its slot, whatever size the file is */
+
+/* Sidebar icons: an exact 22px box, centred on the text line (no percentage sizing,
+   which let taller icons grow past the slot and hang below the name) */
+.hs-side-item{min-height:36px;padding-top:6px;padding-bottom:6px}
+
+/* Icon slot in profile tables: an exact 24px box so every row lines up */
+.item-icon-slot{flex:0 0 24px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;line-height:0}
+.item-icon-slot img{width:24px;height:24px;object-fit:contain}
+
+/* ---------------------------------------------------------
+   Player search in the top bar (every page)
+   --------------------------------------------------------- */
+.topnav .nav-search{width:min(100%, 300px);height:42px;margin:0 0 0 auto;border-width:2px;border-radius:999px;background:#07131f;}
+.topnav .nav-search input{padding:0 4px 0 16px;font-size:14px}
+.topnav .nav-search button{
+  width:42px;
+  border-left:0;
+  border-radius:0 999px 999px 0;
+  background:none;
+  color:var(--gold-light);
+}
+.topnav .nav-search button svg{width:18px;height:18px}
+.topnav .nav-search .search-results{left:-2px;width:max(100% + 4px, 320px);border-width:2px;}
+.topnav .nav-search + .topnav-links{margin-left:8px}
+
+/* the search drops onto its own row before the top bar gets crowded */
+@media (max-width:1000px){
+  .topnav{height:auto;min-height:60px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px;row-gap:8px}
+  .topnav .nav-search{order:3;width:100%;margin-left:0}
+  .topnav .nav-search .search-results{width:100%}
+  .topnav-links{margin-left:auto}
+}
+
+/* Top-bar search: the rounded pill, with the same thick gold line as the other search boxes */
+
+/* Logo: shown whole in its own shape (no circle or gold ring) */
+
+/* Explanation at the top of a tab */
+.tab-intro{margin-bottom:28px}
+
+/* Player profile: thick gold line on the totals and around every table */
+#profile .table-wrap{
+  border:2px solid var(--gold);
+  border-radius:8px;
+  background:var(--row);
+  overflow-y:hidden;
+}
+#profile .table-wrap .hs-table tbody tr:last-child td{border-bottom:0}
+#profile .table-wrap .hs-table th:first-child,
+#profile .table-wrap .hs-table td:first-child{padding-left:16px}
+
+/* Achievement badges: thin outline in the badge's own colour */
+.ach-badge{border-color:var(--tone)}
+
+/* Perfect Dragons tab: large gold headings, like the league titles on the other tabs */
+.perfect-tab .section-title{font-size:28px;color:var(--gold-light)}
+.perfect-tab .section-head{margin-bottom:18px}
+
+/* Milestones: large gold headings above each table */
+.ms-section .section-title{font-size:28px;color:var(--gold-light)}
+.ms-section .section-head{margin-bottom:18px}
+
+/* Player profile: large gold section headings, like the other pages */
+#profile .section-title{font-size:28px;color:var(--gold-light)}
+#profile .section-head{margin-bottom:18px}
+
+/* The X that clears a search box (only shown once something is typed) */
+.search button.search-clear,
+.topnav .nav-search button.search-clear{
+  flex:0 0 auto;
+  width:34px;
+  display:grid;
+  place-items:center;
+  border:0;
+  border-radius:0;
+  background:none;
+  color:var(--muted);
+  cursor:pointer;
+}
+.search button.search-clear[hidden]{display:none}
+.search button.search-clear:hover{color:var(--gold-light)}
+.search button.search-clear svg{width:14px;height:14px}
+
+/* "Also known as" line under the player's name */
+.aka{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px;margin-top:-4px}
+.aka-label{margin-right:2px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.search-alias{font-weight:500;color:var(--muted)}
+.aka-more{padding:2px 4px;border:0;background:none;font:inherit;font-size:12px;font-weight:600;color:var(--gold);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.aka-more:hover{color:#fff}
+
+/* ---------------------------------------------------------
+   Requests page
+   --------------------------------------------------------- */
+.req-form{max-width:620px}
+.req-intro{margin:0 0 22px;color:var(--muted);line-height:1.6}
+.req-field{display:block;margin-bottom:20px}
+.req-label{display:block;margin-bottom:7px;font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-light)}
+.req-label em{margin-left:6px;font-family:var(--body);font-style:normal;font-weight:500;font-size:11px;letter-spacing:.04em;text-transform:none;color:var(--muted)}
+.req-field input[type=text],.req-field input[type=url],.req-field textarea{
+  width:100%;padding:12px 14px;border:2px solid var(--gold);border-radius:8px;background:#0a1b2c;color:var(--text);font:inherit;outline:none;
+}
+.req-field textarea{resize:vertical;min-height:84px}
+.req-field input:focus,.req-field textarea:focus{border-color:var(--gold-light);box-shadow:0 0 0 3px var(--gold-soft)}
+.req-field input::placeholder{color:#6f8296}
+.req-hint{display:block;margin-top:6px;font-size:12px;color:var(--muted)}
+.req-warn{display:block;margin-top:6px;font-size:12px;font-weight:600;color:#f0a35e}
+.req-warn:empty{display:none}
+.req-leagues{display:flex;flex-wrap:wrap;gap:8px}
+.req-leagues input{position:absolute;opacity:0;pointer-events:none}
+.req-leagues span{display:block;padding:7px 14px;border:1px solid var(--gold-line);border-radius:6px;background:#0a1b2c;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer}
+.req-leagues span:hover{color:var(--gold-light);border-color:var(--gold)}
+.req-leagues input:checked + span{color:#1d1509;border-color:var(--gold);background:linear-gradient(180deg, #efcf8c, #c09250)}
+.req-leagues input:focus-visible + span{box-shadow:0 0 0 3px var(--gold-soft)}
+.req-trap{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.req-actions{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:28px}
+.req-submit{padding:12px 28px;border:1px solid var(--gold);border-radius:6px;background:linear-gradient(180deg, #efcf8c, #c09250);color:#1d1509;font-family:var(--display);font-weight:800;font-size:14px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.req-submit:hover{filter:brightness(1.08)}
+.req-submit:disabled{opacity:.6;cursor:default}
+.req-status{font-size:13px;color:var(--muted)}
+.req-done h2{margin:0 0 8px;font-family:var(--display);font-variant:small-caps;font-size:26px;color:var(--gold-light)}
+.req-done p{margin:0 0 20px;max-width:560px;color:var(--muted);line-height:1.6}
+.req-type{margin-bottom:18px}
+
+/* ---------------------------------------------------------
+   Patrons: one dye per tier
+   --dye frames and lines, --dye-text names (lighter where the dye is too dark to read), --dye-rgb glows
+   --------------------------------------------------------- */
+.dye-barrows{--dye:#80b27f;--dye-text:#9ccb9b;--dye-rgb:128,178,127}
+.dye-shadow{--dye:#aa48aa;--dye-text:#d37fd3;--dye-rgb:170,72,170}
+.dye-ice{--dye:#4ec3f2;--dye-text:#7dd3f6;--dye-rgb:78,195,242}
+.dye-third_age{--dye:#f1f1f1;--dye-text:#ffffff;--dye-rgb:241,241,241}
+.dye-blood{--dye:#bf0c0c;--dye-text:#f0575c;--dye-rgb:191,12,12}
+.dye-blossom{--dye:#ffa1c7;--dye-text:#ffb3d1;--dye-rgb:255,161,199}
+.dye-gold{--dye:#ffec00;--dye-text:#ffef28;--dye-rgb:255,236,0}
+
+/* a patron's name wherever it appears: [icon] name in the dye colour */
+.patron{color:var(--dye-text) !important;font-weight:700}
+.patron.dye-third_age{text-shadow:0 0 8px rgba(220,230,245,.7)}
+.patron-icon{display:inline-block;width:22px;height:22px;margin:-4px 7px -5px 0;object-fit:contain}
+
+/* the logo above the name on a profile: the hexagon on its own, no circle */
+img.avatar{width:100px;height:100px;border:0;border-radius:0;background:none;box-shadow:none;object-fit:contain}
+/* the glow is a fixed patch behind the logo: a drop-shadow would be redrawn on every frame of the animation */
+.dyed img.avatar{width:160px;height:160px;padding:30px;margin:-30px;background:radial-gradient(closest-side,rgba(var(--dye-rgb),.6),transparent)}
+
+/* a patron's profile: everything gold takes the dye */
+.dyed{--gold:var(--dye);--gold-light:var(--dye-text);--gold-line:rgba(var(--dye-rgb),.45);--gold-soft:rgba(var(--dye-rgb),.18)}
+.dyed .topnav,.dyed .banner{border-bottom-color:var(--dye)}
+.dyed .banner{background:
+  var(--banner-image) center / cover no-repeat,
+  radial-gradient(420px 200px at 50% 20%, rgba(var(--dye-rgb),.42), transparent 70%),
+  radial-gradient(700px 300px at 15% 30%, rgba(var(--dye-rgb),.28), transparent 70%),
+  radial-gradient(700px 300px at 85% 30%, rgba(var(--dye-rgb),.22), transparent 70%),
+  linear-gradient(180deg, #0b2233 0%, #071a26 100%)}
+.dyed .player-name{color:var(--dye-text)}
+.dyed.dye-third_age .player-name{text-shadow:0 0 14px rgba(220,230,245,.6)}
+
+/* ---------------------------------------------------------
+   Shadow patrons: smoke and backlight
+   --------------------------------------------------------- */
+/* their profile */
+.dyed.dye-shadow body{background:#05030a}
+.dyed.dye-shadow .topnav{background:#0a0611;box-shadow:0 6px 30px rgba(120,40,160,.35)}
+.dyed.dye-shadow .banner{background:
+  radial-gradient(500px 220px at 50% 10%, rgba(170,72,170,.38), transparent 70%),
+  radial-gradient(600px 260px at 10% 60%, rgba(60,20,80,.7), transparent 70%),
+  radial-gradient(600px 260px at 90% 60%, rgba(60,20,80,.7), transparent 70%),
+  linear-gradient(180deg,#140a1f,#07040c)}
+.dyed.dye-shadow .page{background:
+  radial-gradient(600px 300px at 12% 8%, rgba(120,50,140,.22), transparent 70%),
+  radial-gradient(700px 360px at 90% 30%, rgba(90,30,120,.20), transparent 70%),
+  radial-gradient(800px 400px at 30% 75%, rgba(120,50,140,.16), transparent 70%),
+  linear-gradient(180deg,#120b1c 0%,#0a0612 100%);
+  box-shadow:0 0 80px rgba(0,0,0,.9), inset 0 0 120px rgba(0,0,0,.65)}
+.dyed.dye-shadow .total-card,
+.dyed.dye-shadow #profile .table-wrap{
+  background:linear-gradient(180deg,rgba(20,10,30,.92),rgba(8,4,14,.96));
+  box-shadow:0 0 22px rgba(170,72,170,.45), 0 0 60px rgba(120,40,140,.25), inset 0 0 34px rgba(0,0,0,.95), inset 0 0 12px rgba(170,72,170,.25)}
+.dyed.dye-shadow #profile table,
+.dyed.dye-shadow #profile thead,
+.dyed.dye-shadow #profile th{background:transparent}
+.dyed.dye-shadow #profile tbody tr{background:rgba(10,5,16,.55)}
+.dyed.dye-shadow #profile tbody tr:nth-child(even){background:rgba(40,16,54,.38)}
+.dyed.dye-shadow #profile td,
+.dyed.dye-shadow #profile th{border-color:rgba(170,72,170,.22)}
+.dyed.dye-shadow .player-name{text-shadow:0 0 18px rgba(170,72,170,.9),0 0 46px rgba(120,40,160,.75),0 6px 14px #000}
+.dyed.dye-shadow #profile h2{text-shadow:0 0 14px rgba(170,72,170,.75),0 3px 8px #000}
+.dyed.dye-shadow .total-value{text-shadow:0 0 14px rgba(170,72,170,.55)}
+.dyed.dye-shadow img.avatar{background:radial-gradient(closest-side,rgba(170,72,170,.42),rgba(110,30,150,.14) 60%,transparent)}
+.dyed.dye-shadow .aka .player-pill{background:rgba(20,10,30,.9);box-shadow:0 0 10px rgba(170,72,170,.35)}
+
+/* their row in a table: the glow stays inside the row, and the rank and numbers take the dye */
+tr.patron-row.dye-shadow{background:linear-gradient(180deg,#160d20,#0a0612) !important;
+  box-shadow:inset 0 0 0 1px rgba(170,72,170,.8),inset 0 0 14px rgba(170,72,170,.75),inset 0 0 34px rgba(170,72,170,.35)}
+tr.patron-row.dye-shadow td{border-color:rgba(170,72,170,.4);color:var(--dye-text)}
+
+/* their name pill */
+.player-pill.patron.dye-shadow{background:linear-gradient(180deg,#1a1026,#0a0612);border-color:#aa48aa;
+  box-shadow:inset 0 0 8px rgba(170,72,170,.7),inset 0 0 18px rgba(170,72,170,.3)}
+a.player-pill.patron.dye-shadow:hover{background:linear-gradient(180deg,#2a1640,#150a20);border-color:#d37fd3;
+  box-shadow:inset 0 0 10px rgba(211,127,211,.85),inset 0 0 22px rgba(170,72,170,.5)}
+/* shadow profile: the league dropdown */
+.dyed.dye-shadow .select{background:linear-gradient(180deg,#160d20,#0a0612);
+  box-shadow:0 0 16px rgba(170,72,170,.4),inset 0 0 14px rgba(0,0,0,.9),inset 0 0 8px rgba(170,72,170,.25)}
+.dyed.dye-shadow .select-label{color:#b9a3c4}
+.dyed.dye-shadow .select-chevron{color:#f3e3f7;background:linear-gradient(180deg,#b55cb5,#5e2470)}
+.dyed.dye-shadow .select-menu{background:linear-gradient(180deg,#140b1d,#0a0612);
+  box-shadow:0 14px 30px rgba(0,0,0,.7),0 0 20px rgba(170,72,170,.35),inset 0 0 20px rgba(0,0,0,.8)}
+.dyed.dye-shadow .select-option:hover:not(:disabled),
+.dyed.dye-shadow .select-option:focus-visible{background:rgba(170,72,170,.22)}
+.dyed.dye-shadow .select-option[aria-selected="true"]{background:rgba(170,72,170,.3);box-shadow:inset 0 0 10px rgba(170,72,170,.45)}
+.dyed.dye-shadow .select-option:disabled{color:#8f7d9a;opacity:.75}
+/* shadow profile: the search box in the top bar */
+.dyed.dye-shadow .topnav .nav-search{background:linear-gradient(180deg,#160d20,#0a0612);
+  box-shadow:0 0 14px rgba(170,72,170,.4),inset 0 0 12px rgba(0,0,0,.9),inset 0 0 6px rgba(170,72,170,.25)}
+.dyed.dye-shadow .nav-search input::placeholder{color:#b9a3c4}
+.dyed.dye-shadow .search-results{background:linear-gradient(180deg,#140b1d,#0a0612);
+  box-shadow:0 14px 30px rgba(0,0,0,.7),0 0 20px rgba(170,72,170,.35),inset 0 0 20px rgba(0,0,0,.8)}
+.dyed.dye-shadow .search-result{border-color:rgba(170,72,170,.25)}
+.dyed.dye-shadow .search-result:hover,
+.dyed.dye-shadow .search-result.is-focus{background:rgba(170,72,170,.22);box-shadow:inset 0 0 10px rgba(170,72,170,.4)}
+.dyed.dye-shadow .search-result .meta{color:#b9a3c4}
+
+/* ---------------------------------------------------------
+   Barrows patrons: burial cloth and dug-out hollows (no glow)
+   --------------------------------------------------------- */
+.dye-barrows{--cloth:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22600%22%20height%3D%22600%22%3E%3Cfilter%20id%3D%22n%22%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20color-interpolation-filters%3D%22sRGB%22%3E%3CfeTurbulence%20type%3D%22turbulence%22%20baseFrequency%3D%22.011%20.016%22%20numOctaves%3D%222%22%20seed%3D%2221%22%20stitchTiles%3D%22stitch%22/%3E%3CfeColorMatrix%20type%3D%22saturate%22%20values%3D%220%22/%3E%3CfeComponentTransfer%3E%3CfeFuncR%20type%3D%22discrete%22%20tableValues%3D%22.05%20.075%20.10%20.14%20.075%20.05%22/%3E%3CfeFuncG%20type%3D%22discrete%22%20tableValues%3D%22.09%20.13%20.18%20.26%20.13%20.09%22/%3E%3CfeFuncB%20type%3D%22discrete%22%20tableValues%3D%22.06%20.085%20.11%20.15%20.085%20.06%22/%3E%3CfeFuncA%20type%3D%22linear%22%20slope%3D%220%22%20intercept%3D%221%22/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect%20width%3D%22600%22%20height%3D%22600%22%20filter%3D%22url%28%23n%29%22/%3E%3C/svg%3E");--cloth-dark:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22600%22%20height%3D%22600%22%3E%3Cfilter%20id%3D%22n%22%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20color-interpolation-filters%3D%22sRGB%22%3E%3CfeTurbulence%20type%3D%22turbulence%22%20baseFrequency%3D%22.011%20.016%22%20numOctaves%3D%222%22%20seed%3D%2221%22%20stitchTiles%3D%22stitch%22/%3E%3CfeColorMatrix%20type%3D%22saturate%22%20values%3D%220%22/%3E%3CfeComponentTransfer%3E%3CfeFuncR%20type%3D%22discrete%22%20tableValues%3D%22.034%20.040%20.047%20.056%20.040%20.034%22/%3E%3CfeFuncG%20type%3D%22discrete%22%20tableValues%3D%22.058%20.069%20.081%20.097%20.069%20.058%22/%3E%3CfeFuncB%20type%3D%22discrete%22%20tableValues%3D%22.040%20.046%20.053%20.062%20.046%20.040%22/%3E%3CfeFuncA%20type%3D%22linear%22%20slope%3D%220%22%20intercept%3D%221%22/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect%20width%3D%22600%22%20height%3D%22600%22%20filter%3D%22url%28%23n%29%22/%3E%3C/svg%3E")}
+
+/* their profile */
+.dyed.dye-barrows body{background:#040604}
+.dyed.dye-barrows .topnav{background:#090d0a}
+.dyed.dye-barrows .banner{background:
+  var(--banner-image) center / cover no-repeat,
+  radial-gradient(420px 200px at 50% 20%, rgba(128,178,127,.30), transparent 70%),
+  radial-gradient(700px 300px at 15% 30%, rgba(40,90,48,.45), transparent 70%),
+  radial-gradient(700px 300px at 85% 30%, rgba(70,110,60,.35), transparent 70%),
+  linear-gradient(180deg, #12261a 0%, #0c1a12 60%, #070f0a 100%)}
+.dyed.dye-barrows .page{background:var(--cloth-dark);box-shadow:inset 0 1px 0 rgba(190,230,180,.10),0 20px 50px rgba(0,0,0,.6)}
+.dyed.dye-barrows img.avatar{background:none}
+/* boxes are hollows in the ground: shadow falls in from the top and sides, a faint lip catches the light below */
+.dyed.dye-barrows .total-card,
+.dyed.dye-barrows #profile .table-wrap{border:1px solid #020302;border-radius:3px;background:#070a08;
+  box-shadow:inset 0 4px 8px rgba(0,0,0,.85),inset 0 0 0 1px rgba(0,0,0,.6),inset 0 10px 18px -6px rgba(0,0,0,.9),
+    inset 6px 0 12px -6px rgba(0,0,0,.6),inset -6px 0 12px -6px rgba(0,0,0,.6),
+    0 1px 0 rgba(190,230,180,.20),1px 0 0 rgba(190,230,180,.06),-1px 0 0 rgba(190,230,180,.06)}
+.dyed.dye-barrows #profile table,
+.dyed.dye-barrows #profile thead,
+.dyed.dye-barrows #profile th{background:transparent}
+.dyed.dye-barrows #profile tbody tr{background:transparent}
+.dyed.dye-barrows #profile tbody tr:nth-child(even){background:rgba(190,230,180,.035)}
+.dyed.dye-barrows #profile td,
+.dyed.dye-barrows #profile th{border-color:#040604;box-shadow:inset 0 1px 0 rgba(190,230,180,.07)}
+/* lettering is chiselled: dark above, a light edge below */
+.dyed.dye-barrows .player-name{color:#8fb58d;border-bottom:0;text-shadow:0 -2px 0 #000,0 1px 0 rgba(200,235,190,.28);
+  box-shadow:0 2px 0 #000,0 3px 0 rgba(190,230,180,.22)}
+.dyed.dye-barrows #profile h2{color:#8fb58d;text-shadow:0 -1px 0 #000,0 1px 0 rgba(200,235,190,.22)}
+.dyed.dye-barrows .total-label,
+.dyed.dye-barrows #profile th{color:#7da07b;text-shadow:0 -1px 0 #000}
+
+/* their row in a table */
+tr.patron-row.dye-barrows{background:var(--cloth-dark) !important;
+  box-shadow:inset 0 3px 6px rgba(0,0,0,.8),inset 0 -1px 0 rgba(190,230,180,.18),inset 0 0 0 1px rgba(128,178,127,.7)}
+tr.patron-row.dye-barrows td{color:#9ccb9b;text-shadow:0 -1px 0 #000}
+
+/* their name pill */
+.player-pill.patron.dye-barrows{background:var(--cloth-dark);border-color:rgba(128,178,127,.7);color:#9ccb9b !important;
+  text-shadow:0 -1px 0 #000;box-shadow:inset 0 3px 6px rgba(0,0,0,.8),inset 0 -1px 0 rgba(190,230,180,.18)}
+a.player-pill.patron.dye-barrows:hover{background:var(--cloth);border-color:#80b27f;color:#b9e0b8 !important}
+
+/* barrows profile: the league dropdown and the search box in the top bar (same treatment as the pill) */
+.dyed.dye-barrows .select,
+.dyed.dye-barrows .topnav .nav-search{background:#070a08;border-color:rgba(128,178,127,.7);
+  box-shadow:inset 0 3px 6px rgba(0,0,0,.8),inset 0 -1px 0 rgba(190,230,180,.18)}
+.dyed.dye-barrows .select-label,
+.dyed.dye-barrows .nav-search input::placeholder{color:#8a9c88}
+.dyed.dye-barrows .select-chevron{color:#0a120c;border-left-color:rgba(128,178,127,.7);background:linear-gradient(180deg,#8fb58d,#557a54)}
+.dyed.dye-barrows .select-menu,
+.dyed.dye-barrows .search-results{background:var(--cloth-dark);border-color:rgba(128,178,127,.7);
+  box-shadow:0 14px 30px rgba(0,0,0,.7),inset 0 3px 6px rgba(0,0,0,.8)}
+.dyed.dye-barrows .select-group{color:#8fb58d;text-shadow:0 -1px 0 #000}
+.dyed.dye-barrows .search-result{border-color:#040604}
+.dyed.dye-barrows .select-option:hover:not(:disabled),
+.dyed.dye-barrows .select-option:focus-visible,
+.dyed.dye-barrows .search-result:hover,
+.dyed.dye-barrows .search-result.is-focus{background:rgba(128,178,127,.14)}
+.dyed.dye-barrows .select-option[aria-selected="true"]{background:rgba(128,178,127,.2);color:#b9e0b8}
+.dyed.dye-barrows .select-option:disabled{color:#6f7d6e;opacity:.75}
+.dyed.dye-barrows .search-result .meta{color:#8a9c88}
+
+/* the footer strip under a dyed profile continues the panel above it */
+.dyed.dye-shadow .site-footer{background:#0a0612;color:#b9a3c4;box-shadow:0 30px 80px rgba(0,0,0,.9),inset 0 -30px 60px rgba(0,0,0,.5)}
+.dyed.dye-barrows .site-footer{background:#070a08;color:#8a9c88;border-top:1px solid #020302;
+  box-shadow:inset 0 4px 8px rgba(0,0,0,.85),inset 0 10px 18px -6px rgba(0,0,0,.9),
+    inset 6px 0 12px -6px rgba(0,0,0,.6),inset -6px 0 12px -6px rgba(0,0,0,.6),
+    0 1px 0 rgba(190,230,180,.20),0 20px 50px rgba(0,0,0,.6)}
+
+/* ---------------------------------------------------------
+   Third age patrons: the armour. Matte warm-grey plates in flat planes, each shaded in
+   visible steps like the old-school model, edged with the armour's dark teal-black trim.
+   --------------------------------------------------------- */
+.dye-third_age{--trim:#0f2322;--trim-2:#183634;--ink:#080d0c;--ink-2:#1b2423;
+  --plate-a:url('/img/patrons/third_age_plate_a.svg');--plate-b:url('/img/patrons/third_age_plate_b.svg');--plate-c:url('/img/patrons/third_age_plate_c.svg');--plate-wide:url('/img/patrons/third_age_plate_wide.svg');--plate-row:url('/img/patrons/third_age_plate_row.svg');--plate-pill:url('/img/patrons/third_age_plate_pill.svg');}
+
+/* their profile */
+.dyed.dye-third_age body{background:#050909}
+.dyed.dye-third_age .topnav{background:#0a1413;border-bottom-color:#cfcacf}
+.dyed.dye-third_age .banner{border-bottom-color:var(--trim-2);background:
+  var(--banner-image) center / cover no-repeat,
+  radial-gradient(420px 200px at 50% 20%, rgba(207,202,207,.30), transparent 70%),
+  radial-gradient(700px 300px at 15% 30%, rgba(24,54,52,.8), transparent 70%),
+  radial-gradient(700px 300px at 85% 30%, rgba(40,70,68,.5), transparent 70%),
+  linear-gradient(180deg,#16302e,#0c1b1a 60%,#070f0f)}
+.dyed.dye-third_age .page{background:linear-gradient(180deg,#0e1f1e,#091413)}
+.dyed.dye-third_age img.avatar{background:none}
+.dyed.dye-third_age .player-name{color:#dcd8dc;border-bottom:3px solid #cfcacf}
+.dyed.dye-third_age #profile h2{color:#cfcacf}
+/* boxes are plates, with dark lettering on them */
+.dyed.dye-third_age .total-card,
+.dyed.dye-third_age #profile .table-wrap{border:4px solid #000;border-radius:4px;
+  background:var(--plate-wide) center/100% 100% no-repeat;box-shadow:0 6px 0 rgba(0,0,0,.45)}
+.dyed.dye-third_age .total-card:nth-child(1){background-image:var(--plate-a)}
+.dyed.dye-third_age .total-card:nth-child(2){background-image:var(--plate-b)}
+.dyed.dye-third_age .total-card:nth-child(3){background-image:var(--plate-c)}
+.dyed.dye-third_age .total-label,
+.dyed.dye-third_age .total-rank{color:var(--ink-2)}
+.dyed.dye-third_age .total-value{color:var(--ink)}
+.dyed.dye-third_age #profile table,
+.dyed.dye-third_age #profile thead,
+.dyed.dye-third_age #profile th{background:transparent}
+/* the header row is a band of the armour's dark trim with pale lettering */
+.dyed.dye-third_age #profile thead th{background:#000;color:#dcd8dc;border-color:#000}
+.dyed.dye-third_age #profile td{color:var(--ink)}
+.dyed.dye-third_age #profile tbody tr{background:transparent}
+.dyed.dye-third_age #profile tbody tr:nth-child(even){background:rgba(15,35,34,.07)}
+.dyed.dye-third_age #profile tbody tr:hover{background:rgba(15,35,34,.14)}
+.dyed.dye-third_age #profile td,
+.dyed.dye-third_age #profile th{border-color:rgba(10,15,14,.32)}
+.dyed.dye-third_age .site-footer{background:#091413;color:#b9b4ba;border-top-color:var(--trim-2)}
+
+/* their row in a table: a plate with dark lettering */
+tr.patron-row.dye-third_age{background:var(--plate-row) center/100% 100% no-repeat !important;box-shadow:inset 0 0 0 3px #000}
+tr.patron-row.dye-third_age td{color:var(--ink)}
+tr.patron-row.dye-third_age .patron{color:var(--ink) !important;text-shadow:none}
+
+/* their name pill */
+.player-pill.patron.dye-third_age{background:var(--plate-pill) center/100% 100% no-repeat;border:2px solid #000;
+  color:var(--ink) !important;text-shadow:none}
+a.player-pill.patron.dye-third_age:hover{border-color:#cfcacf;filter:brightness(1.1)}
+
+/* third age profile: the league dropdown and the search box in the top bar */
+.dyed.dye-third_age .select{background:var(--plate-a) left center/calc(100% - 50px) 100% no-repeat,#000;border-color:#000;box-shadow:none}
+.dyed.dye-third_age .select-label{color:var(--ink-2)}
+.dyed.dye-third_age .select-value{color:var(--ink)}
+.dyed.dye-third_age .select-chevron{color:#dcd8dc;border-left-color:#000;background:#000}
+.dyed.dye-third_age .select-menu,
+.dyed.dye-third_age .search-results{background:#0c1b1a;border-color:#cfcacf;box-shadow:0 14px 30px rgba(0,0,0,.7)}
+.dyed.dye-third_age .topnav .nav-search{background:#0a1413;border-color:#cfcacf}
+.dyed.dye-third_age .select-option:hover:not(:disabled),
+.dyed.dye-third_age .select-option:focus-visible,
+.dyed.dye-third_age .search-result:hover,
+.dyed.dye-third_age .search-result.is-focus{background:rgba(207,202,207,.14)}
+.dyed.dye-third_age .select-option[aria-selected="true"]{background:rgba(207,202,207,.22);color:#fff}
+.dyed.dye-third_age .select-option:disabled{color:#6f7a79;opacity:.8}
+.dyed.dye-third_age .search-result{border-color:rgba(207,202,207,.16)}
+.dyed.dye-third_age .search-result .meta{color:#b9b4ba}
+
+/* ---------------------------------------------------------
+   Ice patrons: blocks of cloudy ice. A faint ice texture over a glacier-blue face that darkens
+   towards its edges, inside the site's usual frame in the logo's blue.
+   --------------------------------------------------------- */
+.dye-ice{--dye:#4ec3f2;--ice-tex:url('/img/patrons/ice_texture.webp');
+  --ice-face:linear-gradient(180deg,#3c7fa9 0%,#27597f 50%,#183f5f 100%);
+  --ice-sheen:linear-gradient(115deg,transparent 20%,rgba(255,255,255,.09) 29%,transparent 38%,transparent 56%,rgba(255,255,255,.05) 64%,transparent 72%),radial-gradient(120% 95% at 28% -10%,rgba(200,230,247,.22),transparent 62%),linear-gradient(180deg,transparent 55%,rgba(4,22,40,.35));
+  --ice-deep:radial-gradient(ellipse at center,transparent 48%,rgba(3,16,30,.62) 100%)}
+
+/* their profile */
+.dyed.dye-ice body{background:#020a16}
+.dyed.dye-ice .topnav{background:#061a30}
+.dyed.dye-ice .page{background:linear-gradient(180deg,#0b2236,#061522)}
+.dyed.dye-ice .player-name{color:#4ec3f2;border-bottom-color:#4ec3f2}
+.dyed.dye-ice #profile h2{color:#4ec3f2}
+.dyed.dye-ice .total-card,
+.dyed.dye-ice #profile .table-wrap{border:2px solid #4ec3f2;border-radius:8px;
+  box-shadow:0 10px 24px rgba(0,0,0,.45),inset 0 0 22px rgba(3,16,30,.8),inset 0 2px 0 rgba(255,255,255,.2)}
+.dyed.dye-ice .total-card{background:var(--ice-deep),var(--ice-tex) 11% 59%/560px auto,var(--ice-sheen),var(--ice-face)}
+.dyed.dye-ice .total-card:nth-child(2){background-position:0 0,96% 24%,0 0,0 0}
+.dyed.dye-ice .total-card:nth-child(3){background-position:0 0,55% 95%,0 0,0 0}
+.dyed.dye-ice #profile .table-wrap{background:linear-gradient(rgba(5,22,40,.34),rgba(5,22,40,.46)),var(--ice-tex) center/cover,var(--ice-face)}
+.dyed.dye-ice #profile table,
+.dyed.dye-ice #profile thead,
+.dyed.dye-ice #profile th{background:transparent}
+.dyed.dye-ice .total-label,
+.dyed.dye-ice .total-rank{color:#d5e8f3;text-shadow:0 1px 2px rgba(5,25,45,.8)}
+.dyed.dye-ice .total-value{color:#f4fbff;text-shadow:0 2px 3px rgba(5,25,45,.8)}
+.dyed.dye-ice #profile thead th{background:rgba(6,28,48,.5);color:#eaf9ff}
+.dyed.dye-ice #profile td{color:#f4fbff;text-shadow:0 1px 2px rgba(5,25,45,.8)}
+.dyed.dye-ice #profile tbody tr{background:transparent}
+.dyed.dye-ice #profile tbody tr:nth-child(even){background:rgba(4,40,90,.16)}
+.dyed.dye-ice #profile tbody tr:hover{background:rgba(166,227,250,.12)}
+.dyed.dye-ice #profile td,
+.dyed.dye-ice #profile th{border-color:rgba(234,249,255,.28)}
+.dyed.dye-ice .site-footer{background:#061522;color:#a9cfe4}
+
+/* their row in a table */
+tr.patron-row.dye-ice{background:var(--ice-deep),var(--ice-tex) 85% 65%/560px auto,var(--ice-sheen),var(--ice-face) !important;
+  box-shadow:inset 0 0 0 1px #4ec3f2,inset 0 0 16px rgba(3,16,30,.85)}
+tr.patron-row.dye-ice:nth-child(even){background-position:0 0,44% 36%,0 0,0 0 !important}
+tr.patron-row.dye-ice td{color:#f4fbff;text-shadow:0 1px 2px rgba(5,25,45,.8)}
+tr.patron-row.dye-ice .patron{color:#f4fbff !important;text-shadow:0 1px 2px rgba(5,25,45,.8)}
+
+/* their name pill */
+.player-pill.patron.dye-ice{background:var(--ice-deep),var(--ice-tex) 30% 40%/560px auto,var(--ice-face);border:1px solid #4ec3f2;
+  color:#f4fbff !important;text-shadow:0 1px 2px rgba(5,25,45,.8);box-shadow:inset 0 0 8px rgba(3,16,30,.7)}
+a.player-pill.patron.dye-ice:hover{border-color:#a6e3fa;filter:brightness(1.18)}
+
+/* ice profile: the league dropdown and the search box in the top bar */
+.dyed.dye-ice .select{background:var(--ice-deep),var(--ice-tex) 70% 20%/560px auto,var(--ice-face);box-shadow:inset 0 0 14px rgba(3,16,30,.8)}
+.dyed.dye-ice .select-label{color:#d5e8f3}
+.dyed.dye-ice .select-chevron{color:#04253d;background:#4ec3f2}
+.dyed.dye-ice .select-menu,
+.dyed.dye-ice .search-results{background:linear-gradient(180deg,#0e2c46,#081b2c);box-shadow:0 14px 30px rgba(0,0,0,.6)}
+.dyed.dye-ice .topnav .nav-search{background:#07182a}
+.dyed.dye-ice .select-option:hover:not(:disabled),
+.dyed.dye-ice .select-option:focus-visible,
+.dyed.dye-ice .search-result:hover,
+.dyed.dye-ice .search-result.is-focus{background:rgba(78,195,242,.16)}
+.dyed.dye-ice .select-option[aria-selected="true"]{background:rgba(78,195,242,.26);color:#eaf9ff}
+.dyed.dye-ice .search-result .meta{color:#a9cfe4}
+
+/* ---------------------------------------------------------
+   Blood patrons: the ice recipe with a blood-spatter texture over a near-black face,
+   inside the site's usual frame in the logo's red.
+   --------------------------------------------------------- */
+.dye-blood{--dye:#bf0c0c;--blood-tex:url('/img/patrons/blood_texture.webp');
+  --blood-face:linear-gradient(180deg,#160406 0%,#0c0203 50%,#060101 100%);
+  --blood-sheen:linear-gradient(115deg,transparent 20%,rgba(255,255,255,.09) 29%,transparent 38%,transparent 56%,rgba(255,255,255,.05) 64%,transparent 72%),radial-gradient(120% 95% at 28% -10%,rgba(255,170,170,.22),transparent 62%),linear-gradient(180deg,transparent 55%,rgba(30,3,6,.35));
+  --blood-deep:radial-gradient(ellipse at center,transparent 48%,rgba(22,2,5,.62) 100%)}
+
+/* their profile */
+.dyed.dye-blood body{background:#070202}
+.dyed.dye-blood .topnav{background:#120405}
+.dyed.dye-blood .page{background:linear-gradient(180deg,#1c0709,#0f0304)}
+.dyed.dye-blood .player-name{color:#bf0c0c;border-bottom-color:#bf0c0c}
+.dyed.dye-blood #profile h2{color:#bf0c0c}
+.dyed.dye-blood .total-card,
+.dyed.dye-blood #profile .table-wrap{border:2px solid #bf0c0c;border-radius:8px;box-shadow:0 10px 24px rgba(0,0,0,.45),inset 0 0 22px rgba(22,2,5,.8);}
+.dyed.dye-blood .total-card{background:var(--blood-deep),var(--blood-tex) 11% 59%/700px auto,var(--blood-face)}
+.dyed.dye-blood .total-card:nth-child(2){background-position:0 0,96% 24%,0 0}
+.dyed.dye-blood .total-card:nth-child(3){background-position:0 0,55% 95%,0 0}
+.dyed.dye-blood #profile .table-wrap{background:linear-gradient(rgba(10,1,2,.45),rgba(10,1,2,.55)),var(--blood-tex) center/cover,var(--blood-face)}
+.dyed.dye-blood #profile table,
+.dyed.dye-blood #profile thead,
+.dyed.dye-blood #profile th{background:transparent}
+.dyed.dye-blood .total-label,
+.dyed.dye-blood .total-rank{color:#f1d3d4;text-shadow:0 1px 2px rgba(40,4,8,.85)}
+.dyed.dye-blood .total-value{color:#f4fbff;text-shadow:0 2px 3px rgba(40,4,8,.85)}
+.dyed.dye-blood #profile thead th{background:rgba(30,4,8,.55);color:#ffe9ea}
+.dyed.dye-blood #profile td{color:#f4fbff;text-shadow:0 1px 2px rgba(40,4,8,.85)}
+.dyed.dye-blood #profile tbody tr{background:transparent}
+.dyed.dye-blood #profile tbody tr:nth-child(even){background:rgba(120,10,16,.14)}
+.dyed.dye-blood #profile tbody tr:hover{background:rgba(224,52,58,.12)}
+.dyed.dye-blood #profile td,
+.dyed.dye-blood #profile th{border-color:rgba(255,210,212,.22)}
+.dyed.dye-blood .site-footer{background:#0f0304;color:#d9a3a6}
+
+/* their row in a table */
+tr.patron-row.dye-blood{background:var(--blood-deep),var(--blood-tex) 85% 65%/700px auto,var(--blood-face) !important;
+  box-shadow:inset 0 0 0 1px #bf0c0c,inset 0 0 16px rgba(22,2,5,.85)}
+tr.patron-row.dye-blood:nth-child(even){background-position:0 0,44% 36%,0 0 !important}
+tr.patron-row.dye-blood td{color:#f4fbff;text-shadow:0 1px 2px rgba(40,4,8,.85)}
+tr.patron-row.dye-blood .patron{color:#f4fbff !important;text-shadow:0 1px 2px rgba(40,4,8,.85)}
+
+/* their name pill */
+.player-pill.patron.dye-blood{background:var(--blood-deep),var(--blood-tex) 62% 38%/240px auto,var(--blood-face);border:1px solid #bf0c0c;color:#f4fbff !important;text-shadow:0 1px 2px rgba(40,4,8,.85);box-shadow:inset 0 0 8px rgba(22,2,5,.7);}
+a.player-pill.patron.dye-blood:hover{border-color:#e0343a;filter:brightness(1.18)}
+
+/* ice profile: the league dropdown and the search box in the top bar */
+.dyed.dye-blood .select{background:var(--blood-deep),var(--blood-tex) 70% 20%/700px auto,var(--blood-face);box-shadow:inset 0 0 14px rgba(22,2,5,.8)}
+.dyed.dye-blood .select-label{color:#f1d3d4}
+.dyed.dye-blood .select-chevron{color:#fff;background:#bf0c0c}
+.dyed.dye-blood .select-menu,
+.dyed.dye-blood .search-results{background:linear-gradient(180deg,#2c080b,#170405);box-shadow:0 14px 30px rgba(0,0,0,.6)}
+.dyed.dye-blood .topnav .nav-search{background:#140405}
+.dyed.dye-blood .select-option:hover:not(:disabled),
+.dyed.dye-blood .select-option:focus-visible,
+.dyed.dye-blood .search-result:hover,
+.dyed.dye-blood .search-result.is-focus{background:rgba(191,12,12,.16)}
+.dyed.dye-blood .select-option[aria-selected="true"]{background:rgba(191,12,12,.26);color:#ffe9ea}
+.dyed.dye-blood .search-result .meta{color:#d9a3a6}
+
+/* blood fixes: banner in blood tones, a tighter glow behind the logo, no pale line along the top of each box, more spatter on the pill */
+.dyed.dye-blood .banner{background:
+  var(--banner-image) center / cover no-repeat,
+  radial-gradient(420px 200px at 50% 20%, rgba(191,12,12,.42), transparent 70%),
+  radial-gradient(700px 300px at 15% 30%, rgba(110,4,8,.55), transparent 70%),
+  radial-gradient(700px 300px at 85% 30%, rgba(150,8,12,.38), transparent 70%),
+  linear-gradient(180deg, #2a0609 0%, #160304 60%, #0a0102 100%)}
+.dyed.dye-blood img.avatar{background:radial-gradient(circle at center, rgba(191,12,12,.5) 0, rgba(191,12,12,.18) 42px, transparent 62px)}
+
+/* ---------------------------------------------------------
+   Gold patrons: polished gold that catches moving light, like the logo's animation,
+   on the logo's near-black. The highest tier, so the only animated profile.
+   --------------------------------------------------------- */
+.dye-gold{--dye:#c9a043;--dye-text:#f2d27a;--dye-rgb:201,160,67;
+  --gold-metal:repeating-linear-gradient(100deg,#3d2a0e 0,#9b7931 30px,#f2d27a 52px,#fffbe8 62px,#c9a043 76px,#5a3f15 104px,#b8913c 140px,#fff3c4 160px,#8a6524 182px,#3d2a0e 210px,#3d2a0e 240px);
+  --gold-text:repeating-linear-gradient(100deg,#b8913c 0,#d9b65c 40px,#f6dc8c 80px,#fffbe8 100px,#f2d27a 120px,#c9a043 170px,#b8913c 240px);
+  --gold-bg:#040404}
+@keyframes gold-shine{from{background-position:0 0,0 0}to{background-position:0 0,240px 0}}
+@keyframes gold-shine-text{from{background-position:0 0}to{background-position:240px 0}}
+.dyed.dye-gold body{background:#000}
+.dyed.dye-gold .topnav{background:#080808;border-bottom-color:#9b7931}
+.dyed.dye-gold .banner{background:radial-gradient(420px 200px at 50% 20%,rgba(242,210,122,.16),transparent 70%),linear-gradient(180deg,#151515,#090909 60%,#040404);border-bottom-color:#9b7931}
+.dyed.dye-gold .page{background:var(--gold-bg)}
+.dyed.dye-gold .site-footer{background:#040404;color:#bfae86;border-top-color:#3a3020}
+.dyed.dye-gold img.avatar{background:none}
+/* the username: gold lettering with the light moving across it */
+.dyed.dye-gold .player-name{background:var(--gold-text);background-size:240px 100%;-webkit-background-clip:text;background-clip:text;color:transparent !important;
+  border-bottom:0;animation:gold-shine-text 5s linear infinite;position:relative}
+.dyed.dye-gold .player-name::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--gold-metal);background-size:240px 100%;animation:gold-shine-text 5s linear infinite}
+.dyed.dye-gold #profile h2{color:#d9b65c}
+/* boxes and tables: the gold frame shines; inside stays the logo's near-black */
+.dyed.dye-gold .total-card,
+.dyed.dye-gold #profile .table-wrap{border:2px solid transparent;border-radius:8px;
+  background:linear-gradient(#000,#000) padding-box,var(--gold-metal) border-box;background-size:auto,240px 100%;
+  animation:gold-shine 5s linear infinite;box-shadow:0 10px 24px rgba(0,0,0,.5)}
+.dyed.dye-gold .total-label,.dyed.dye-gold #profile thead th{color:#d9b65c}
+.dyed.dye-gold #profile table,.dyed.dye-gold #profile thead,.dyed.dye-gold #profile th{background:transparent}
+.dyed.dye-gold #profile tbody tr{background:transparent}
+.dyed.dye-gold #profile tbody tr:nth-child(even){background:rgba(255,255,255,.025)}
+.dyed.dye-gold #profile td,.dyed.dye-gold #profile th{border-color:rgba(201,160,67,.18)}
+/* their row and pill */
+tr.patron-row.dye-gold{background:#000 !important;position:relative}
+tr.patron-row.dye-gold::after{content:"";position:absolute;inset:0;padding:2px;pointer-events:none;
+  background:var(--gold-metal);background-size:240px 100%;animation:gold-shine-text 5s linear infinite;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+/* gold lines along the top and bottom of the row, and down each end */
+tr.patron-row.dye-gold td{background:#000 !important;border-color:transparent}
+tr.patron-row.dye-gold td:not(:last-child){box-shadow:1px 0 0 #000}
+tr.patron-row.dye-gold .gold-txt,tr.patron-row.dye-gold .combo-code,tr.patron-row.dye-gold .patron:not(.player-pill),.player-pill.patron.dye-gold .gold-txt{background:var(--gold-text);background-size:240px 100%;-webkit-background-clip:text;background-clip:text;color:transparent !important;animation:gold-shine-text 5s linear infinite}
+.player-pill.patron.dye-gold{border:1.5px solid transparent;background:linear-gradient(#000,#000) padding-box,var(--gold-metal) border-box;background-size:auto,240px 100%;animation:gold-shine 5s linear infinite}
+@media (prefers-reduced-motion:reduce){.dye-gold *,.dyed.dye-gold .player-name,tr.patron-row.dye-gold::after,.player-pill.patron.dye-gold{animation:none !important}}
+/* gold profile: search box and dropdown */
+.dyed.dye-gold .topnav .nav-search{border:2px solid transparent;background:linear-gradient(#000,#000) padding-box,var(--gold-metal) border-box;background-size:auto,240px 100%;animation:gold-shine 5s linear infinite}
+.dyed.dye-gold .nav-search input::placeholder{color:#bfae86}
+.dyed.dye-gold .search-results,
+.dyed.dye-gold .select-menu{background:#000;border-color:#9b7931;box-shadow:0 14px 30px rgba(0,0,0,.8)}
+.dyed.dye-gold .search-result{border-color:rgba(201,160,67,.2)}
+.dyed.dye-gold .search-result:hover,.dyed.dye-gold .search-result.is-focus,
+.dyed.dye-gold .select-option:hover:not(:disabled),.dyed.dye-gold .select-option:focus-visible{background:rgba(201,160,67,.16)}
+.dyed.dye-gold .select-option[aria-selected="true"]{background:rgba(201,160,67,.26);color:#fff3c4}
+.dyed.dye-gold .search-result .meta{color:#bfae86}
+.dyed.dye-gold .select{border-color:transparent;background:linear-gradient(#000,#000) padding-box,var(--gold-metal) border-box;background-size:auto,240px 100%;animation:gold-shine 5s linear infinite}
+.dyed.dye-gold .select-label{color:#d9b65c}
+.dyed.dye-gold .select-chevron{color:#000;border-left-color:transparent;background:var(--gold-metal);background-size:240px 100%;animation:gold-shine-text 5s linear infinite}
+
+/* ---------------------------------------------------------
+   Dyed profiles: achievement boxes take the dye's background
+   (the emblem glow stays; nothing else changes)
+   --------------------------------------------------------- */
+.dyed.dye-shadow .ach-badge{background:radial-gradient(160px 120px at 0% 30%,var(--glow),transparent 70%),linear-gradient(180deg,#140a1e,#08040e)}
+.dyed.dye-barrows .ach-badge{background:radial-gradient(160px 120px at 0% 30%,var(--glow),transparent 70%),linear-gradient(180deg,#0b100c,#070a08)}
+.dyed.dye-third_age .ach-badge{background:radial-gradient(160px 120px at 0% 30%,var(--glow),transparent 70%),linear-gradient(180deg,#1f2222,#121414)}
+.dyed.dye-ice .ach-badge{background:radial-gradient(160px 120px at 0% 30%,var(--glow),transparent 70%),var(--ice-face)}
+.dyed.dye-blood .ach-badge{background:radial-gradient(160px 120px at 0% 30%,var(--glow),transparent 70%),var(--blood-face)}
+.dyed.dye-gold .ach-badge{background:radial-gradient(160px 120px at 0% 30%,var(--glow),transparent 70%),#000}
+
+/* ---------------------------------------------------------
+   Blossom patrons: deep plum pink with a faint floral pattern,
+   and cherry petals drifting down inside the boxes and their hiscores row.
+   --------------------------------------------------------- */
+.dye-blossom{--dye:#ffa1c7;--dye-text:#ffb3d1;--dye-rgb:255,161,199;
+  --bl-floral:url('/img/patrons/blossom_floral.webp');
+  --bl-face:linear-gradient(180deg,#a04a78 0%,#7c3059 50%,#5a1f40 100%);
+  --bl-deep:radial-gradient(ellipse at center,transparent 48%,rgba(70,18,46,.55) 100%);
+  --bl-shade:rgba(60,14,38,.9)}
+
+/* their profile */
+.dyed.dye-blossom body{background:#0a050a}
+.dyed.dye-blossom .topnav{background:#170b15;border-bottom-color:#ffa1c7}
+.dyed.dye-blossom .banner{background:
+  var(--banner-image) center / cover no-repeat,
+  radial-gradient(420px 200px at 50% 20%, rgba(255,161,199,.34), transparent 70%),
+  radial-gradient(700px 300px at 15% 30%, rgba(140,50,95,.5), transparent 70%),
+  radial-gradient(700px 300px at 85% 30%, rgba(200,100,150,.3), transparent 70%),
+  linear-gradient(180deg,#3a1a30,#241020 60%,#150a13);border-bottom-color:#ffa1c7}
+.dyed.dye-blossom .page{background:linear-gradient(180deg,#2a1224,#190a16)}
+.dyed.dye-blossom img.avatar{background:radial-gradient(circle at center, rgba(255,161,199,.45) 0, rgba(255,161,199,.15) 42px, transparent 62px)}
+.dyed.dye-blossom .player-name{color:#ffa1c7;border-bottom-color:#ffa1c7}
+.dyed.dye-blossom #profile h2{color:#ffa1c7}
+.dyed.dye-blossom .total-card,
+.dyed.dye-blossom #profile .table-wrap{border:2px solid #ffa1c7;border-radius:8px;
+  box-shadow:0 10px 24px rgba(0,0,0,.45),inset 0 0 22px rgba(70,18,46,.7)}
+.dyed.dye-blossom .total-card{background:var(--bl-floral) 31% 47%/300px auto,var(--bl-deep),var(--bl-face)}
+.dyed.dye-blossom .total-card:nth-child(2){background-position:62% 94%,0 0,0 0}
+.dyed.dye-blossom .total-card:nth-child(3){background-position:93% 141%,0 0,0 0}
+.dyed.dye-blossom #profile .table-wrap{background:linear-gradient(rgba(70,18,46,.30),rgba(70,18,46,.42)),var(--bl-floral) 0 0/300px auto,var(--bl-face)}
+.dyed.dye-blossom #profile table,
+.dyed.dye-blossom #profile thead,
+.dyed.dye-blossom #profile th{background:transparent}
+.dyed.dye-blossom .total-label,
+.dyed.dye-blossom .total-rank{color:#f6dbe8;text-shadow:0 1px 2px var(--bl-shade)}
+.dyed.dye-blossom .total-value{color:#fff;text-shadow:0 2px 3px var(--bl-shade)}
+.dyed.dye-blossom #profile thead th{background:rgba(30,10,22,.5);color:#ffe9f2}
+.dyed.dye-blossom #profile td{color:#fff;text-shadow:0 1px 2px var(--bl-shade)}
+.dyed.dye-blossom #profile tbody tr{background:transparent}
+.dyed.dye-blossom #profile tbody tr:nth-child(even){background:rgba(255,161,199,.05)}
+.dyed.dye-blossom #profile tbody tr:hover{background:rgba(255,161,199,.1)}
+.dyed.dye-blossom #profile td,
+.dyed.dye-blossom #profile th{border-color:rgba(255,200,222,.24)}
+.dyed.dye-blossom .ach-badge{background:radial-gradient(160px 120px at 0% 30%,var(--glow),transparent 70%),linear-gradient(180deg,#3a1830,#24101f)}
+.dyed.dye-blossom .site-footer{background:#190a16;color:#e3b3c9}
+
+/* their row in a table */
+tr.patron-row.dye-blossom{background:var(--bl-floral) 20% 30%/240px auto,var(--bl-deep),var(--bl-face) !important;
+  box-shadow:inset 0 0 0 1px #ffa1c7,inset 0 0 16px rgba(70,18,46,.8)}
+tr.patron-row.dye-blossom:nth-child(even){background-position:60% 70%,0 0,0 0 !important}
+tr.patron-row.dye-blossom td{color:#fff;text-shadow:0 1px 2px var(--bl-shade)}
+tr.patron-row.dye-blossom .patron{color:#fff !important;text-shadow:0 1px 2px var(--bl-shade)}
+
+/* their name pill */
+.player-pill.patron.dye-blossom{background:var(--bl-floral) 40% 40%/200px auto,var(--bl-deep),var(--bl-face);border:1px solid #ffa1c7;
+  color:#fff !important;text-shadow:0 1px 2px var(--bl-shade);box-shadow:inset 0 0 8px rgba(70,18,46,.7)}
+a.player-pill.patron.dye-blossom:hover{filter:brightness(1.15)}
+
+/* their profile: the league dropdown and the search box in the top bar */
+.dyed.dye-blossom .select{border-color:#ffa1c7;background:var(--bl-floral) 70% 20%/260px auto,var(--bl-deep),var(--bl-face);box-shadow:inset 0 0 14px rgba(70,18,46,.8)}
+.dyed.dye-blossom .select-label{color:#f6dbe8}
+.dyed.dye-blossom .select-chevron{color:#3a1030;border-left-color:#ffa1c7;background:#ffa1c7}
+.dyed.dye-blossom .select-menu,
+.dyed.dye-blossom .search-results{background:linear-gradient(180deg,#3a1830,#24101f);border-color:#ffa1c7;box-shadow:0 14px 30px rgba(0,0,0,.6)}
+.dyed.dye-blossom .topnav .nav-search{background:#24101f;border-color:#ffa1c7}
+.dyed.dye-blossom .nav-search input::placeholder{color:#e3b3c9}
+.dyed.dye-blossom .select-option:hover:not(:disabled),
+.dyed.dye-blossom .select-option:focus-visible,
+.dyed.dye-blossom .search-result:hover,
+.dyed.dye-blossom .search-result.is-focus{background:rgba(255,161,199,.16)}
+.dyed.dye-blossom .select-option[aria-selected="true"]{background:rgba(255,161,199,.26);color:#ffe9f2}
+.dyed.dye-blossom .search-result .meta{color:#e3b3c9}
+
+/* falling petals (added by patrons.js): under the text, inside the box's shape, moved only with transforms */
+.has-petals{position:relative;overflow:hidden;isolation:isolate}
+.petal-fall{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:-1;border-radius:inherit}
+tr.patron-row.dye-blossom td{position:relative;z-index:1}
+tr.patron-row td:first-child > .petal-fall{inset:auto;top:0;left:0;width:var(--rw);height:var(--rh)}
+.petal-fall i{position:absolute;top:-24px;left:var(--x);animation:petal-drop var(--t) linear var(--d) infinite;will-change:transform}
+.petal-fall b{display:block;animation:petal-sway calc(var(--t) / 2.5) ease-in-out var(--d) infinite alternate}
+.petal-fall img{display:block;width:var(--s);height:auto;opacity:var(--o);animation:petal-spin calc(var(--t) / 2) linear var(--d) infinite}
+@keyframes petal-drop{from{transform:translateY(0)}to{transform:translateY(var(--fall))}}
+@keyframes petal-sway{from{transform:translateX(calc(var(--w) * -1))}to{transform:translateX(var(--w))}}
+@keyframes petal-spin{from{transform:rotate3d(var(--ax),0deg)}to{transform:rotate3d(var(--ax),360deg)}}
+@media (prefers-reduced-motion:reduce){.petal-fall{display:none}}
+
+/* ---------------------------------------------------------
+   Patreon page: the dye picker (the preview itself uses the dye styles above)
+   --------------------------------------------------------- */
+.dye-intro{margin-bottom:40px}
+.dye-picker{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.dye-picker .player-pill{height:34px;padding:0 15px;font-size:14px;cursor:pointer}
+.dye-picker .player-pill .patron-icon{width:20px;height:20px;margin:-3px 7px -3px -4px}
+.dye-pick[aria-pressed="true"]{outline:2px solid var(--c);outline-offset:3px}
+.patreon-cta{display:flex;width:fit-content;align-items:center;height:42px;margin:22px auto 0;padding:0 24px;border-radius:999px;
+  background:var(--gold);color:#1d1509;font-weight:800;font-size:15px;text-decoration:none;transition:filter .15s ease}
+.patreon-cta:hover{filter:brightness(1.12)}
+.dyed .patreon-cta{background:var(--dye);color:#000}
+.dye-pills{margin-top:14px}
+#mockSelect .select-button{cursor:default}
+/* the top bar: closer links on smaller screens */
+@media (max-width:1200px){.topnav-links{gap:18px}}
+/* Patreon page: the hiscores sample framed like the hiscores page, headings sized like the profile's */
+.dye-elsewhere .table-wrap{border:2px solid var(--gold);border-radius:8px;background:var(--row);overflow:hidden}
+.dye-elsewhere .section-title{font-size:28px;color:var(--gold-light)}
+.dye-elsewhere .note{margin:0 0 14px}
+.dyed .dye-elsewhere .section-title{color:var(--dye-text,var(--dye))}
+@media (max-width:640px){
+  .topnav-links{order:2;width:100%;margin-left:0;flex-wrap:wrap;justify-content:center;gap:6px 16px}
+}
+.dyed.dye-blood .patreon-cta,.dyed.dye-shadow .patreon-cta,.dyed.dye-barrows .patreon-cta{color:#fff}
+
+/* ---------------------------------------------------------
+   Home page
+   --------------------------------------------------------- */
+.home-hero{text-align:center;margin-bottom:34px}
+.home-hero .avatar{display:block;margin:0 auto 14px}
+.home-tag{max-width:620px;margin:14px auto 0;color:var(--muted);font-size:16px;line-height:1.5}
+.home-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:40px}
+.home-stat{padding:18px 14px;border:2px solid var(--gold);border-radius:8px;background:var(--row);text-align:center}
+.home-stat b{display:block;font-size:28px;color:var(--text)}
+.home-stat span{display:block;margin-top:4px;font-family:var(--display);font-size:13px;font-weight:700;color:var(--gold-light)}
+.home-split{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:start}
+.home-links{display:grid;gap:12px}
+.home-links a{display:block;padding:14px 18px;border:1px solid var(--gold-line);border-radius:8px;background:var(--row);text-decoration:none;transition:border-color .15s ease,background .15s ease}
+.home-links a:hover{border-color:var(--gold);background:var(--row-hover)}
+.home-links b{display:block;font-family:var(--display);font-size:18px;color:var(--gold-light)}
+.home-links span{display:block;margin-top:4px;color:var(--muted);font-size:14px;line-height:1.4}
+.home-leagues{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.home-league{display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px solid var(--gold-line);border-radius:8px;background:var(--row);text-decoration:none;transition:border-color .15s ease,background .15s ease}
+.home-league:hover{border-color:var(--gold);background:var(--row-hover)}
+.home-league img{width:40px;height:40px;object-fit:contain;flex:none}
+.home-league-text{flex:1;min-width:0}
+.home-league-text b{display:block;color:var(--text);font-size:15px}
+.home-league-text small,.home-league-count small{display:block;color:var(--muted);font-size:12px;font-weight:600}
+.home-league-count{text-align:right;font-weight:700;color:var(--gold-light)}
+.home-patreon{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;border:1px solid var(--gold-line);border-radius:8px;background:var(--row)}
+.home-patreon p{margin:0;max-width:640px;color:var(--muted);line-height:1.5}
+@media (max-width:900px){
+  .home-split{grid-template-columns:1fr}
+  .home-stats{grid-template-columns:repeat(2,1fr)}
+}
+.home-hero .player-name{display:inline-block}
+.home .table-wrap{border:2px solid var(--gold);border-radius:8px;background:var(--row);overflow:hidden}
+@media (max-width:640px){
+  .home-stat b{font-size:22px}
+  .home-patreon{padding:18px}
+}
+.home-split > *{min-width:0}
+.home .hs-board{min-width:0;width:100%}
+
+/* the combo code in a patron's row takes the row's dye colour instead of staying gold */
+tr.patron-row .combo-code{color:inherit}

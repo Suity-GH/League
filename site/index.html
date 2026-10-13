@@ -1,73 +1,64 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Leagues Leaderboard</title>
-  <meta name="description" content="OSRS / RS3 / Combined Leagues leaderboard with global player search." />
-  <link rel="stylesheet" href="/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>League Archive</title>
+  <meta name="description" content="Hiscores, trophies, milestones and achievements for every RuneScape League, in OSRS and RS3.">
+  <link rel="stylesheet" href="/theme.css">
 </head>
+<body class="home">
+  <nav class="topnav"></nav>
 
-<body>
-  <div class="container">
-    <header>
-      <a class="brand" href="/">
-        <div class="title">Leagues Leaderboard</div>
-        <div class="tag">OSRS • RS3 • Combined</div>
-      </a>
+  <div class="banner"></div>
 
-      <nav class="navlinks">
-        <a href="/" class="navitem navitem-active">Leaderboards</a>
-        <a href="/stats.html" class="navitem">Stats</a>
-        <a href="/achievements.html" class="navitem">Achievements</a>
-
-        <!-- <div class="dropdown">
-          <button class="dropbtn">Info ▾</button>
-          <div class="dropdown-content">
-            <a href="/relics.html">Relics (Coming soon)</a>
-            <a href="/areas.html">Areas (Coming soon)</a>
-          </div>
-        </div>
-
-        <a href="/about.html" class="navitem">About</a> -->
-      </nav>
+  <main class="page">
+    <header class="home-hero">
+      <img class="avatar" src="/img/logo_200.webp" alt="" onerror="this.remove()">
+      <h1 class="player-name">League Archive</h1>
+      <p class="home-tag">Hiscores, trophies and achievements for every RuneScape League, in Old School and RuneScape 3.</p>
     </header>
 
-    <section class="hero">
-      <h1>Leaderboards</h1>
-      <p>
-        Use the tabs to view top players across both games. Use the search bar or click a player to view their profile.
-      </p>
+    <div class="home-stats" id="homeStats"></div>
+
+    <div class="home-split">
+      <section class="section">
+        <div class="section-head"><h2 class="section-title">Top Players</h2></div>
+        <div class="table-wrap">
+          <table class="hs-table hs-board">
+            <thead><tr><th class="col-rank">Rank</th><th class="col-name">Player</th><th>Combined</th></tr></thead>
+            <tbody id="homeTop"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head"><h2 class="section-title">Explore</h2></div>
+        <div class="home-links">
+          <a href="/hiscores.html"><b>Hiscores</b><span>League Points, skills and bosses, and the all-league totals.</span></a>
+          <a href="/milestones.html"><b>Milestones</b><span>How many players reached each trophy, relic tier, and skill milestone.</span></a>
+          <a href="/achievements.html"><b>Achievements</b><span>Perfect Dragons, league firsts, and region combo winners.</span></a>
+          <a href="/requests.html"><b>Requests</b><span>Changed your name or have an alt? Get your accounts linked.</span></a>
+        </div>
+      </section>
+    </div>
+
+    <section class="section">
+      <div class="section-head"><h2 class="section-title">Leagues</h2></div>
+      <div class="home-leagues" id="homeLeagues"></div>
     </section>
 
-    <section class="panel">
-      <div class="tabs" aria-label="Leaderboard tabs">
-        <button data-tab="osrs" type="button">OSRS</button>
-        <button data-tab="rs3" type="button">RS3</button>
-        <button data-tab="combined" type="button">Combined</button>
-      </div>
-
-      <div class="searchbar">
-        <input id="search" type="text" placeholder="Search any player…" autocomplete="off" />
-        <button id="clear" type="button">Clear</button>
-      </div>
-
-      <div id="searchResults" aria-live="polite"></div>
-
-      <div class="tablewrap">
-        <table>
-          <thead id="leaderboardHead"></thead>
-          <tbody id="leaderboardBody"></tbody>
-        </table>
-      </div>
-      <div id="leaderboardPager" class="leaderboard-pager"></div>
+    <section class="section home-patreon">
+      <p>Enjoy the site? Supporting the project on Patreon keeps SuityBot and League Archive running, and patrons get their profile dyed.</p>
+      <a class="gold-button" href="/patreon.html">See the Patreon dyes</a>
     </section>
+  </main>
 
-    <footer>
-      Created by Suity
-    </footer>
-  </div>
+  <footer class="site-footer">Powered by SuityBot</footer>
 
-  <script src="/app.js"></script>
+  <script src="/common.js"></script>
+  <script src="/home.js"></script>
+  <script src="/nav-search.js"></script>
+  <script src="/patrons.js"></script>
 </body>
 </html>

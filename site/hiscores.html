@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hiscores | League Archive</title>
+  <meta name="description" content="League points, skills, bosses and activities for every RuneScape League.">
+  <link rel="stylesheet" href="/theme.css">
+</head>
+<body>
+  <nav class="topnav"></nav>
+
+  <div class="banner"></div>
+
+  <main class="page">
+    <header class="page-head">
+      <h1 class="player-name">Hiscores</h1>
+    </header>
+
+    <div class="hs-controls">
+      <div class="select" id="leagueSelect"></div>
+      <div class="select hs-list-select" id="listSelect"></div>
+      <div class="search hs-search" id="hsSearch">
+        <input type="text" placeholder="Find player in this list..." autocomplete="off" aria-label="Find player in this list">
+        <button type="button" class="search-clear" aria-label="Clear search" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        <button type="button" class="search-go" aria-label="Find">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="hs-layout">
+      <aside class="hs-side" id="sidebar"></aside>
+      <section class="hs-main">
+        <div class="hs-title" id="title"></div>
+        <p class="note hidden" id="hsNote"></p>
+        <div id="content"></div>
+        <div class="pager" id="pager"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">Powered by SuityBot</footer>
+
+  <script src="/common.js"></script>
+  <script src="/hiscores.js"></script>
+  <script src="/nav-search.js"></script>
+  <script src="/patrons.js"></script>
+</body>
+</html>

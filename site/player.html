@@ -1,106 +1,71 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Player Profile</title>
-  <meta name="description" content="Player profile across RuneScape Leagues." />
-  <link rel="stylesheet" href="/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Player Profile | League Archive</title>
+  <meta name="description" content="Player profile across RuneScape Leagues.">
+  <link rel="stylesheet" href="/theme.css">
 </head>
-
 <body>
-  <div class="container">
-    <header>
-      <a class="brand" href="/">
-        <div class="title">Leagues Leaderboard</div>
-        <div class="tag">OSRS • RS3 • Combined</div>
-      </a>
+  <nav class="topnav"></nav>
 
-      <nav class="navlinks">
-        <a href="/" class="navitem navitem-active">Leaderboards</a>
-        <a href="/stats.html" class="navitem">Stats</a>
-        <a href="/achievements.html" class="navitem">Achievements</a>
-        <!-- <div class="dropdown">
-          <button class="dropbtn" type="button">Info ▾</button>
-          <div class="dropdown-content">
-            <a href="/relics.html">Relics (Coming soon)</a>
-            <a href="/areas.html">Areas (Coming soon)</a>
-          </div>
-        </div>
+  <div class="banner"></div>
 
-        <a href="/about.html" class="navitem">About</a> -->
-      </nav>
+  <main class="page">
+    <header class="profile-head">
+      <img class="avatar" src="/img/logo_200.webp" alt="" onerror="this.remove()">
+      <h1 class="player-name" id="playerName">Player Profile</h1>
+      <div class="aka hidden" id="aliases"></div>
     </header>
 
-    <section class="hero">
-      <h1 id="playerName">Player Profile</h1>
-      <p id="playerSubtitle">Loading player data…</p>
-    </section>
+    <p class="note hidden" id="profileError"></p>
 
-    <section class="panel">
-      <div class="searchbar">
-        <input id="search" type="text" placeholder="Search any player…" autocomplete="off" />
-        <button id="clear" type="button">Clear</button>
-      </div>
+    <div id="profile">
+      <div class="totals" id="totals"></div>
 
-      <div id="searchResults" aria-live="polite"></div>
-    </section>
+      <section class="section hidden" id="achievementsSection">
+        <div class="section-head"><h2 class="section-title">Achievements</h2></div>
+        <div class="ach-grid" id="achievementsList"></div>
+        <button type="button" class="ach-more hidden" id="achievementsMore"></button>
+      </section>
 
-    <section class="panel">
-      <div class="profile-summary" id="profileSummary"></div>
-    </section>
+      <section class="section">
+        <div class="section-head"><h2 class="section-title">Old School Leagues</h2></div>
+        <div class="table-wrap">
+          <table class="hs-table">
+            <thead><tr><th>League</th><th>Rank</th><th>Points</th><th>Trophy</th></tr></thead>
+            <tbody id="osrsBody"></tbody>
+          </table>
+        </div>
+      </section>
 
-    <section class="panel" id="achievementsPanel" style="display:none;">
-      <h2 class="section-title">Achievements</h2>
-      <div class="achievement-list" id="achievementsList"></div>
-    </section>
+      <section class="section" id="rs3Section">
+        <div class="section-head"><h2 class="section-title">RuneScape 3 Leagues</h2></div>
+        <div class="table-wrap">
+          <table class="hs-table">
+            <thead><tr><th>League</th><th>Rank</th><th>Points</th><th>Trophy</th></tr></thead>
+            <tbody id="rs3Body"></tbody>
+          </table>
+        </div>
+      </section>
 
-    <section class="panel profile-leagues">
-      <h2 class="section-title" id="osrsLeaguesTitle">OSRS Leagues</h2>
-      <div class="tablewrap">
-        <table>
-          <thead>
-            <tr>
-              <th>League</th>
-              <th>Points</th>
-              <th>Rank</th>
-              <th>Trophy</th>
-            </tr>
-          </thead>
-          <tbody id="osrsLeagueBody"></tbody>
-        </table>
-      </div>
-    </section>
+      <section class="section">
+        <div class="section-head">
+          <h2 class="section-title">Top 250 Hiscores</h2>
+          <div class="select" id="hiscoreLeague"></div>
+        </div>
+        <p class="note" id="hiscoresNote"></p>
+        <div id="hiscoreTables"></div>
+      </section>
+    </div>
+  </main>
 
-    <section class="panel profile-leagues">
-      <h2 class="section-title" id="rs3LeaguesTitle">RS3 Leagues</h2>
-      <div class="tablewrap">
-        <table>
-          <thead>
-            <tr>
-              <th>League</th>
-              <th>Points</th>
-              <th>Rank</th>
-              <th>Trophy</th>
-            </tr>
-          </thead>
-          <tbody id="rs3LeagueBody"></tbody>
-        </table>
-      </div>
-    </section>
+  <footer class="site-footer">Powered by SuityBot</footer>
 
-    <section class="panel" id="profileError" style="display:none;">
-      <h2 class="section-title">Not found</h2>
-      <p class="muted">
-        This player profile could not be loaded.
-      </p>
-    </section>
-
-    <footer>
-      Created by Suity
-    </footer>
-  </div>
-
+  <script src="/common.js"></script>
   <script src="/player.js"></script>
+  <script src="/nav-search.js"></script>
+  <script src="/patrons.js"></script>
 </body>
 </html>
