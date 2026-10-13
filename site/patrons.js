@@ -15,7 +15,8 @@
   const tierOf = url => patrons[(new URL(url, location.href).searchParams.get("key") || "").toLowerCase()]
 
   // the profile being viewed
-  const own = location.pathname.endsWith("/player.html") && tierOf(location.href)
+  // (the live host drops ".html" from the address, so match /player with or without it)
+  const own = /\/player(\.html)?$/.test(location.pathname) && tierOf(location.href)
   if (own) {
     document.documentElement.classList.add("dyed", `dye-${own}`)
     document.querySelectorAll(".brand-logo img, img.avatar").forEach(img => { img.src = `/img/patrons/${own}.webp` })
